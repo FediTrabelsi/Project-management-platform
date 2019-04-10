@@ -130,6 +130,7 @@ export class RegisterComponent implements OnInit {
         },2000);
       }
       else{
+
         this.messageClass='alert alert-danger';
         this.message=""+data['message'];
       }

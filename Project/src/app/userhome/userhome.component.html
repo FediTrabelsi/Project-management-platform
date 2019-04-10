@@ -1,20 +1,194 @@
-<div class="row" style="margin-top:40px; background-color:#eff0f2;
--webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
--moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);">
-  <!-- <div class="col-sm-12" style="text-align:center;">
-    Register
-  </div> -->
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
 
-  <div class="col-sm-12">
-      <div class="jumbotron">
-          <h1 class="display-4">Hello {{name}}</h1>
-          <p class="lead">You have successfully logged in </p>
-          <hr class="my-4">
-          <p>Bla Bla Bla.</p>
-          <p class="lead" style="color:white;">
-            <a class="btn btn-primary btn-lg" role="button" >Log Out</a>
-          </p>
-        </div>
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="#">Wait for proj name ....</a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Forum</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()">Logout</a>
+      </li>
+
+
+    </ul>
+    <!-- Links -->
+
+
+      <div class="md-form my-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      </div>
   </div>
-</div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+
+<section id="profile">
+  <div style="display : inline-block" class="container-fluid">
+    <div class="row">
+    <div  class="col-md-3  text-center" style="margin-left: 5%; ; border: b" >
+      <div class="card-header">
+        <h3 >{{user?.username}}</h3>
+      </div>
+        <img  src={{profilepic}} alt="" class="center">
+        <label class="btn btn-default">
+          Change profile picture <input type="file" hidden  (change)="onFileSelected($event)">
+      </label>
+      <br>
+      <div class="card-header">
+      <p> joined at {{user?.creationDate}}</p>
+    </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="card" style="margin-left: 10%" >
+
+          <div class="card-header">
+            <h4>Basic Informations</h4>
+          </div>
+          <div class="card-body">
+            <form *ngIf="user" [formGroup]="formprofile" >
+              <div class="form-group">
+                <label for="name">First name</label>
+                <input [readOnly]="formEditable" formControlName="firstname"  type="text" name="firstname" class="form-control" value="{{user?.firstname}}">
+              </div>
+              <div class="form-group">
+                  <label for="name">Last name</label>
+                  <input [readOnly]="formEditable" type="text" formControlName="lastname" name="lastname" class="form-control" value="{{user?.lastname}}">
+                </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input [readOnly]="formEditable"  type="text"  name="email" formControlName="email" class="form-control"  value="{{user?.email}}">
+              </div>
+              <div class="form-group">
+                  <label for="name">Phone number</label>
+                  <input [readOnly]="formEditable" type="text" formControlName="phone" name="phone" class="form-control" value="{{user?.phone}}">
+                </div>
+                <div class="form-group">
+                    <label for="name">Country</label>
+                    <input [readOnly]="formEditable" type="text" formControlName="country" name="country" class="form-control" value="{{user?.country}}">
+                  </div>
+              <div class="form-group">
+                <label for="bio">Description</label>
+                <textarea [readOnly]="formEditable" class="form-control" formControlName="description" name="description">{{user?.description}}</textarea>
+              </div>
+              <button mdbBtn [hidden]="!edit" (click)="onEdit()" type="button" color="primary" outline="true" mdbWavesEffect >Edit</button>
+              <button mdbBtn  [hidden]="!save" (click)="updateProfileData()" type="button" color="success" outline="true" mdbWavesEffect>Save</button>
+              <button  mdbBtn [hidden]="!cancel" (click)="onCancel()" type="button" color="danger" outline="true" mdbWavesEffect>Cancel</button>
+
+
+            </form>
+          </div>
+        </div>
+
+        <div class="card" style="margin-left: 10% ; margin-top: 5%" >
+
+          <div class="card-header">
+            <h4>Complementary informations</h4>
+          </div>
+          <div class="card-body" >
+            <div *ngFor="let ed of user?.education " class="card-header" style="margin-top: 2%">
+                <form *ngIf="user" [formGroup]="educationform">
+                    <label>Education</label>
+                    <input type="text" formControlName="education" class="form-control"  value="{{ed.institution}}">
+                    <div class="form-inline " style="margin-top: 2%" >
+                        <label for="email">Institution</label>
+                        <input type="text" formControlName="inst" class="form-control" value="{{ed.place}}"  >
+                        <label for="pwd">From / To</label>
+                        <input type="text" formControlName="year" class="form-control" value="{{ed.year}}" >
+                        <button type="button" class="btn btn-success">Edit</button>
+                        <button type="button" class="btn btn-danger">Remove</button>
+
+
+                      </div>
+                    </form>
+
+            </div>
+
+
+            <div class="card-header">
+              <form *ngIf="user" [formGroup]="educationform">
+              <label>Education</label>
+              <input type="text" formControlName="education" class="form-control"  value="">
+              <div class="form-inline " style="margin-top: 2%" >
+                  <label for="email">Institution</label>
+                  <input type="text" formControlName="inst" class="form-control"   >
+                  <label for="pwd">From / To</label>
+                  <input type="text" formControlName="year" class="form-control" >
+                  <button type="submit" (click)="addEducation()" >Add</button>
+                </div>
+              </form>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+</section>
+
+<!-- FOOTER -->
+<footer id="main-footer" class="bg-dark text-white mt-5 p-5">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p class="lead text-center">
+          Copyright &copy;
+          <span id="year"></span>
+          Trabelsi Fedi
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+
+<script>
+  // Get the current year for the copyright
+  $('#year').text(new Date().getFullYear());
+
+  CKEDITOR.replace('editor1');
+</script>
+

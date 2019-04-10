@@ -11,6 +11,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService} from './services/auth.service';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { AuthGuardService } from './services/auth-guard.service';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,10 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     ReactiveFormsModule,
     HttpClientModule
   ],schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

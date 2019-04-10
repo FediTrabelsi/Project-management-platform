@@ -1,41 +1,93 @@
-<div class="row" style="margin-top:40px; padding:20px; background-color:#eff0f2;border-radius:15px;
--webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
--moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);">
-  <div class="col-sm-12" style="text-align:center;">
-    Login
-  </div>
 
-  <div class="col-sm-12">
 
-    <form [formGroup]="loginform" (submit)="onLoginSubmit()">
-      <div class="form-group">name
-        <label for="exampleInputEmail1">User </label>
-        <input formControlName="username" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter User name">
-        <ul class="help-block">
-          <li *ngIf="!!loginform.controls.username.errors?.required && !!loginform.controls.username.dirty">This field is required</li>
-          <li *ngIf="!!loginform.controls.username.errors?.minlength && !!loginform.controls.username.dirty || !!loginform.controls.username.errors?.maxlength && !!form.controls.username.dirty ">Minimum characters: 4, Maximum characters: 15</li>
-          <li *ngIf="!!loginform.controls.username.errors?.validateUsername && !!loginform.controls.username.dirty">Username must not have any special characters</li>
-        </ul>
-      </div>
-      <div class="form-group">
-        <label for="passwordInput">Password</label>
-        <input formControlName="password" type="password" class="form-control" id="passwordInput" aria-describedby="passHelp" placeholder="password">
-        <ul class="help-block">
-          <li *ngIf="!!loginform.controls.password.errors?.required && !!loginform.controls.password.dirty">This field is required</li>
-          <li *ngIf="!!loginform.controls.password.errors?.minlength && !!loginform.controls.password.dirty || !!loginform.controls.password.errors?.maxlength && !!loginform.controls.password.dirty ">Minimum characters: 8, Maximum characters: 35</li>
-          <li *ngIf="!!loginform.controls.password.errors?.validatePassword && !!loginform.controls.password.dirty">Password must contain at least one : number ,special character ,lowercase letter and uppercase letter </li>
-        </ul>
-      </div>
-      <div class="row show-hide-message" style="margin-left: 0.12cm">
-          <div [ngClass]="messageClass">
-            {{message}}
+<header>
+
+  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+    <mdb-navbar-brand>
+      <a class="logo navbar-brand waves-light" mdbWavesEffect href="#"><strong>Waiting for proj name ...</strong></a>
+    </mdb-navbar-brand>
+    <links>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active waves-light" mdbWavesEffect>
+          <a class="nav-link" [routerLink]="['/login']">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link" [routerLink]="['/register']">Register</a>
+        </li>
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link" [routerLink]="['/login']">About</a>
+        </li>
+      </ul>
+
+    </links>
+  </mdb-navbar>
+
+  <div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/89.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="mask rgba-indigo-strong d-flex justify-content-center align-items-center">
+      <div class="container">
+        <div class="row pt-lg-5 mt-lg-5">
+          <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-center text-md-left wow fadeInLeft" data-wow-delay="0.3s">
+            <h1 class="display-4 font-weight-bold">What is waiting for proj name ... ?</h1>
+            <hr class="hr-light">
+            <h6 class="mb-3">It's a semestrial project that .... and ..... so you can ..... and .....
+              but also .........
+            </h6>
+            <a mdbBtn color="white" outline="true" mdbWavesEffect>Learn more</a>
+          </div>
+          <div class="col-md-6 col-xl-5 mb-4" style="margin-left: 2cm">
+            <div class="col-sm-12" style="background-color: white">
+
+              <form [formGroup]="loginform" class="text-center border border-light p-5">
+
+                <p class="h4 mb-4">Sign in</p>
+
+
+                <input formControlName="username" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
+               <br>
+                <small>
+                <ul class="help-block">
+                        <li *ngIf="!!loginform.controls.username.errors?.required && !!loginform.controls.username.dirty">This field is required</li>
+                        <li *ngIf="!!loginform.controls.username.errors?.minlength && !!loginform.controls.username.dirty || !!loginform.controls.username.errors?.maxlength && !!form.controls.username.dirty ">Minimum characters: 4, Maximum characters: 15</li>
+                        <li *ngIf="!!loginform.controls.username.errors?.validateUsername && !!loginform.controls.username.dirty">Username must not have any special characters</li>
+                </ul>
+              </small>
+                <input formControlName="password" type="password" class="form-control" id="passwordInput" aria-describedby="passHelp" placeholder="password">
+               <br>
+                <small >
+                <ul class="help-block">
+                        <li *ngIf="!!loginform.controls.password.errors?.required && !!loginform.controls.password.dirty">This field is required</li>
+                        <li *ngIf="!!loginform.controls.password.errors?.minlength && !!loginform.controls.password.dirty || !!loginform.controls.password.errors?.maxlength && !!loginform.controls.password.dirty ">Minimum characters: 8, Maximum characters: 35</li>
+                        <li *ngIf="!!loginform.controls.password.errors?.validatePassword && !!loginform.controls.password.dirty">Password must contain at least one : number ,special character ,lowercase letter and uppercase letter </li>
+                </ul>
+              </small>
+                <div class="d-flex justify-content-around">
+                  <div>
+                    <mdb-checkbox [default]="true">Remember me</mdb-checkbox>
+                  </div>
+                  <div>
+                    <a href="">Forgot password?</a>
+                  </div>
+                </div>
+                <br>
+                <div class="row show-hide-message" style="margin-left: 0.12cm">
+                  <div [ngClass]="messageClass">
+                    {{message}}
+                  </div>
+            </div>
+
+                <button [disabled]="!loginform.valid" mdbBtn color="info" block="true" class="my-4" type="submit" (click)="onLoginSubmit()">Sign in</button>
+
+                <p>Not a member?
+                  <a [routerLink]="['/register']">Register</a>
+                </p>
+
+
+              </form>
+            </div>
           </div>
         </div>
-      <div class="form-group" style="text-align:center;">
-          <button type="button" [disabled]="!loginform.valid" class="btn btn-primary" (click)="onLoginSubmit()">Log in</button>
-          <button type="button" class="btn btn-success" (click)="moveToRegister()">Register</button>
       </div>
-    </form>
+    </div>
   </div>
-</div>
+</header>
+

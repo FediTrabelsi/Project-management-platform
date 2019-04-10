@@ -3,12 +3,13 @@ var router = express.Router();
 const User = require('../models/user');
 const jwt= require('jsonwebtoken');
 const config=require('../../config/database');
-// Home page route.
+
+
 router.get('/register', function (req, res) {
   res.send('Wiki home page');
 })
 
-// About page route.
+
 router.post('/register', function (req, res) {
     if (!req.body.email){
         res.json({success: false, message:'you have to provide an email '+JSON.stringify(req.body)});
@@ -34,7 +35,8 @@ router.post('/register', function (req, res) {
             username: req.body.username,
             password:req.body.password,
             email:req.body.email,
-            creationDate:getDateTime()
+            creationDate:getDateTime(),
+            imagesrc : 'uploads/avatar.jpg'
         });
         user.save((err) => {
             if(err){
@@ -63,8 +65,9 @@ router.post('/register', function (req, res) {
                 }
             }
             else{
-                res.json({success: true,message : 'user created'});
-                console.log('user created '+user);
+                const token =jwt.sign({userId: user._id },config.secret,{expiresIn :'30m'});
+                res.json({success: true,message : 'Redirecting to home page ....',token: token,user :{username: user.username,
+                userId: user._id}});
 
             }
         });
@@ -94,9 +97,9 @@ router.post('/login',(req,res)=>{
                         if(!validPassword){
                             res.json({success: false,message : 'Wrong password'});
                         }else{
-                            const token =jwt.sign({userId: user._id },config.secret,{expiresIn :30});
-
-                            res.json({success: true,message : 'Redirecting to home page ....',token: token,user :{username: user.username}});
+                            const token =jwt.sign({userId: user._id },config.secret,{expiresIn :'30m'});
+                            res.json({success: true,message : 'Redirecting to home page ....',token: token,user :{username: user.username,
+                            userId: user._id}});
                         }
                     }
                 }

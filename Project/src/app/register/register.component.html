@@ -1,85 +1,104 @@
 
-<div class="row" style="margin-top:40px; padding:20px; background-color:#eff0f2;border-radius:15px;
--webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
--moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);">
-  <div class="col-sm-12" style="text-align:center;">
-    Registration form
-  </div>
+<header >
 
-
-
-  <div class="col-sm-12">
-<form [formGroup]="form" (submit)="onRegisterSubmit()">
-
-  <!-- Username Input -->
-  <div class="form-group">
-    <label for="username">Username</label>
-    <div [ngClass]="{'has-error': (form.controls.username.errors && !form.controls.username.dirty), 'has-success': form.controls.username.errors}">
-      <input type="text" name="username" class="form-control" autocomplete="off" placeholder="*Username" formControlName="username" />
-      <!-- Validation -->
-      <ul class="help-block">
-        <li *ngIf="!!form.controls.username.errors?.required && !!form.controls.username.dirty">This field is required</li>
-        <li *ngIf="!!form.controls.username.errors?.minlength && !!form.controls.username.dirty || !!form.controls.username.errors?.maxlength && !!form.controls.username.dirty ">Minimum characters: 4, Maximum characters: 15</li>
-        <li *ngIf="!!form.controls.username.errors?.validateUsername && !!form.controls.username.dirty">Username must not have any special characters</li>
+  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+    <mdb-navbar-brand>
+      <a class="logo navbar-brand waves-light" mdbWavesEffect href="#"><strong>Waiting for proj name ...</strong></a>
+    </mdb-navbar-brand>
+    <links>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active waves-light" mdbWavesEffect>
+          <a class="nav-link" [routerLink]="['/login']">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link" [routerLink]="['/register']">Register</a>
+        </li>
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link" [routerLink]="['/login']">About</a>
+        </li>
       </ul>
-    </div>
-  </div>
 
-  <!-- Email Input -->
-  <div class="form-group">
-    <label for="email">Email</label>
-    <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty), 'has-success': !form.controls.email.errors}">
-      <input type="text" name="email" class="form-control" autocomplete="off" placeholder="*Email" formControlName="email" />
-      <!-- Validation -->
-      <ul class="help-block">
-        <li *ngIf="!!form.controls.email.errors?.required && !!form.controls.email.dirty">This field is required</li>
-        <li *ngIf="!!(form.controls.email.errors?.minlength && form.controls.email.dirty || form.controls.email.errors?.maxlength && form.controls.email.dirty ) && !!form.controls.email.dirty">Minimum characters: 5, Maximum characters: 30</li>
-        <li *ngIf="!!form.controls.email.errors?.validateEmail && !!form.controls.email.dirty">This must be a valid e-mail</li>
-      </ul>
-    </div>
-  </div>
+    </links>
+  </mdb-navbar>
 
-  <!-- Password Input -->
-  <div class="form-group">
-    <label for="password">Password</label>
-    <div [ngClass]="{'has-error': (form.controls.password.errors && form.controls.password.dirty), 'has-success': !form.controls.password.errors}">
-      <input type="password" name="password" class="form-control" autocomplete="off" placeholder="*Password" formControlName="password" />
-      <!-- Validation -->
-      <ul class="help-block">
-        <li *ngIf="!!form.controls.password.errors?.required && !!form.controls.password.dirty">This field is required</li>
-        <li *ngIf="!!form.controls.password.errors?.minlength && !!form.controls.password.dirty || !!form.controls.password.errors?.maxlength && !!form.controls.password.dirty ">Minimum characters: 8, Maximum characters: 35</li>
-        <li *ngIf="!!form.controls.password.errors?.validatePassword && !!form.controls.password.dirty">Password must be at least 8 characters but no more than 35</li>
-      </ul>
-    </div>
-  </div>
+  <div  style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/89.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="rgba-indigo-strong d-flex justify-content-center align-items-center">
+      <div class="container" style="margin-top: 20% ">
+        <div class="row pt-lg-5 mt-lg-5">
+          <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-center text-md-left wow fadeInLeft" data-wow-delay="0.3s">
+            <h1 class="display-4 font-weight-bold">What is waiting for proj name ... ?</h1>
+            <hr class="hr-light">
+            <h6 class="mb-3">It's a semestrial project that .... and ..... so you can ..... and .....
+              but also .........
+            </h6>
+            <a mdbBtn color="white" outline="true" mdbWavesEffect>Learn more</a>
+          </div>
+          <div class="col-md-6 col-xl-5 mb-4" style="margin-left: 2cm">
+            <div class="col-sm-12" style="background-color: white">
+              <form [formGroup]="form" class="text-center border border-light p-5">
+                <p class="h4 mb-4">Sign up</p>
+                <div [ngClass]="{'has-error': (form.controls.username.errors && !form.controls.username.dirty), 'has-success': form.controls.username.errors}">
+                  <label for="username">Username</label>
+                  <input type="text" name="username" class="form-control" autocomplete="off" placeholder="*Username" formControlName="username" />
+                  <ul class="help-block">
+                    <li *ngIf="!!form.controls.username.errors?.required && !!form.controls.username.dirty">This field is required</li>
+                    <li *ngIf="!!form.controls.username.errors?.minlength && !!form.controls.username.dirty || !!form.controls.username.errors?.maxlength && !!form.controls.username.dirty ">Minimum characters: 4, Maximum characters: 15</li>
+                    <li *ngIf="!!form.controls.username.errors?.validateUsername && !!form.controls.username.dirty">Username must not have any special characters</li>
+                  </ul>
+                </div>
+              <div class="form-group" >
+                  <label for="email">Email</label>
+                <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty), 'has-success': !form.controls.email.errors}">
+                  <input type="text" name="email" class="form-control" autocomplete="off" placeholder="*Email" formControlName="email" />
+                  <ul class="help-block">
+                    <li *ngIf="!!form.controls.email.errors?.required && !!form.controls.email.dirty">This field is required</li>
+                    <li *ngIf="!!(form.controls.email.errors?.minlength && form.controls.email.dirty || form.controls.email.errors?.maxlength && form.controls.email.dirty ) && !!form.controls.email.dirty">Minimum characters: 5, Maximum characters: 30</li>
+                    <li *ngIf="!!form.controls.email.errors?.validateEmail && !!form.controls.email.dirty">This must be a valid e-mail</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label for="password" style="text-align: left">Password</label>
+                <div [ngClass]="{'has-error': (form.controls.password.errors && form.controls.password.dirty), 'has-success': !form.controls.password.errors}">
+                  <input type="password" name="password" class="form-control" autocomplete="off" placeholder="*Password" formControlName="password" />
+                  <!-- Validation -->
+                  <ul class="help-block">
+                    <li *ngIf="!!form.controls.password.errors?.required && !!form.controls.password.dirty">This field is required</li>
+                    <li *ngIf="!!form.controls.password.errors?.minlength && !!form.controls.password.dirty || !!form.controls.password.errors?.maxlength && !!form.controls.password.dirty ">Minimum characters: 8, Maximum characters: 35</li>
+                    <li *ngIf="!!form.controls.password.errors?.validatePassword && !!form.controls.password.dirty">Password must be at least 8 characters but no more than 35</li>
+                  </ul>
+                </div>
+              </div>
 
-  <!-- Confirm Password Input -->
-  <div class="form-group">
-    <label for="confirm">Confirm Password</label>
-    <div [ngClass]="{'has-error': (form.controls.confirm.errors && form.controls.confirm.dirty) || (form.errors?.matchingPasswords && form.controls.confirm.dirty), 'has-success': !form.controls.confirm.errors && !form.errors?.matchingPasswords}">
-      <input type="password" name="confirm" class="form-control" autocomplete="off" placeholder="*Confirm Password" formControlName="confirm" />
-      <!-- Validation -->
-      <ul class="help-block">
-        <li *ngIf="!!form.controls.confirm.errors?.required && !!form.controls.confirm.dirty">This field is required</li>
-        <li *ngIf="!!form.errors?.matchingPasswords && !!form.controls.confirm.dirty">Password do not match</li>
-      </ul>
-    </div>
-  </div>
-  <div class="row show-hide-message" style="margin-left: 0.12cm">
-      <div [ngClass]="messageClass">
-        {{message}}
+              <div class="form-group">
+                <div [ngClass]="{'has-error': (form.controls.confirm.errors && form.controls.confirm.dirty) || (form.errors?.matchingPasswords && form.controls.confirm.dirty), 'has-success': !form.controls.confirm.errors && !form.errors?.matchingPasswords}">
+                    <label for="confirm">Confirm password</label>
+                  <input type="password" name="confirm" class="form-control" autocomplete="off" placeholder="*Confirm Password" formControlName="confirm" />
+                  <!-- Validation -->
+                  <ul class="help-block">
+                    <li *ngIf="!!form.controls.confirm.errors?.required && !!form.controls.confirm.dirty">This field is required</li>
+                    <li *ngIf="!!form.errors?.matchingPasswords && !!form.controls.confirm.dirty">Password do not match</li>
+                  </ul>
+                </div>
+                </div>
+                <br>
+                <div class="row show-hide-message" style="margin-left: 0.12cm">
+                    <div [ngClass]="messageClass">
+                      {{message}}
+                    </div>
+                  </div>
+
+                  <button [disabled]="!form.valid"  mdbBtn color="info" outline="true" rounded="true" block="true" (click)="onRegisterSubmit()" class="my-4 waves-effect z-depth-0" mdbWavesEffect
+                      type="submit">Sign in</button>
+
+
+              </form>
+
+              </div>
+          </div>
+        </div>
       </div>
     </div>
-
-
-
-  <!-- Submit Input -->
-
-  <input [disabled]="!form.valid" type="submit" class="btn btn-primary" value="Create account" />
-
-</form>
-
-<!-- Registration Form /-->
-</div>
+  </div>
+</header>
 

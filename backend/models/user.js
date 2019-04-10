@@ -105,9 +105,36 @@ const passwordValidators = [
 
 const userSchema= new Schema({
     username: {type : String, required : true, unique : true, validate : usernameValidators},
+    firstname : {type : String ,default :""},
+    lastname : {type : String ,default :""},
     password : {type : String, required : true, unique : true,validate : passwordValidators},
     email : {type : String, required : true, unique : true, validate : emailValidators},
-    creationDate : {type : String, required : true}
+    creationDate : {type : String, required : true},
+    phone : {type : String ,default :""},
+    gender : {type : String ,default :""},
+    country : {type : String ,default :""},
+    description : {type : String ,default :""},
+    imagesrc : { type : String,default :""},
+    education : [ 
+                  { year :{type : String ,default :""}, 
+                    place :{type : String ,default :""}, 
+                    institution : {type : String ,default :""}
+                   }
+                   ],
+    experiance : [ 
+      { exp :{type : String ,default :""}, 
+        expyear :{type : String ,default :""}
+       }
+       ],
+    skills : [ {name : { type : String ,default:""} } ],
+    intrests : [ { name : {type: String , default : ""} } ],
+    projects : [ 
+                { 
+                  name : {type: String , default : ""},
+                  id : {type : String , default : ""}
+                }
+                ]
+
 
 });
 

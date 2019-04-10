@@ -3,11 +3,13 @@ const app = express();
 const mongoose=require('mongoose');
 const config = require('../config/database');
 const path = require('path');
+var upuser = require('./routes/userData.js');
 var authent= require('./routes/authentification.js');
 const bodyParser= require('body-parser');
 const cors= require('cors'); 
 
 mongoose.Promise=global.Promise;
+app.use('/uploads',express.static('uploads'))
 mongoose.connect(config.uri,(err) => {
     if (err){
         console.log('Could not connect to db',err);
@@ -23,6 +25,7 @@ app.use(cors({
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static( '../Project/dist/'));
 app.use('/authentification',authent);
+app.use('/user',upuser);
 app.get('/',(req,res) => {
     res.send('hello');
 });
