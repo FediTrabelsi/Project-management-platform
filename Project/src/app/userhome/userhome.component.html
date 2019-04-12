@@ -1,4 +1,10 @@
 <!--Navbar-->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 <nav class="navbar navbar-expand-lg navbar-dark primary-color">
 
   <!-- Navbar brand -->
@@ -34,13 +40,13 @@
       </li>
 
 
+
     </ul>
     <!-- Links -->
 
 
-      <div class="md-form my-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      </div>
+
+
   </div>
   <!-- Collapsible content -->
 
@@ -50,19 +56,61 @@
 <section id="profile">
   <div style="display : inline-block" class="container-fluid">
     <div class="row">
-    <div  class="col-md-3  text-center" style="margin-left: 5%; ; border: b" >
-      <div class="card-header">
+    <div  class="col-md-3  " style="margin-left: 5%; ; border: b" >
+      <div class="card-header text-center">
         <h3 >{{user?.username}}</h3>
       </div>
+      <div class="text-center">
         <img  src={{profilepic}} alt="" class="center">
         <label class="btn btn-default">
           Change profile picture <input type="file" hidden  (change)="onFileSelected($event)">
       </label>
+    </div>
       <br>
       <div class="card-header">
-      <p> joined at {{user?.creationDate}}</p>
+      <p> joined at </p>
     </div>
+    <div >
+      <br>
+      <p>{{user?.creationDate}}</p>
+    </div>
+
+    <div class="card-header">
+        <p> Skills </p>
       </div>
+
+      <p >
+        <span class="tags" style="white-space:pre-wrap; margin-right: 1.5%" *ngFor="let skill of user?.skills ; let i = index"  >{{skill?.name}}</span>
+      </p>
+      <div>
+          <form  [formGroup]="skillform">
+        <input [hidden]="!skill" type="text" formControlName="skillname" name="country" class="form-control" placeholder={{skillplaceholder}}>
+        <button mdbBtn  [hidden]="skillbuttons" (click)="addSkill()" type="button" color="primary" outline="true" mdbWavesEffect>Add skill</button>
+        <button  mdbBtn [hidden]="skillbuttons" (click)="removeSkill()" type="button" color="danger" outline="true" mdbWavesEffect>Remove skill</button>
+        <button mdbBtn  [hidden]="!skillbuttons" (click)="add()" type="button" color="primary" outline="true" mdbWavesEffect>Add </button>
+        <button  mdbBtn [hidden]="!skillbuttons" (click)="remove()" type="button" color="danger" outline="true" mdbWavesEffect>Remove </button>
+          </form>
+      </div>
+
+      <div class="card-header" style="margin-top : 5%">
+          <p> Intrested in  </p>
+        </div>
+        <p >
+          <span class="tags" style="white-space:pre-wrap; margin-right: 1.5%" *ngFor="let intrest of user?.intrests ; let i = index"  >{{intrest?.name}}</span>
+        </p>
+        <div>
+            <form  [formGroup]="intrestform">
+          <input [hidden]="!intrest" type="text" formControlName="intrestname" name="country" class="form-control" placeholder={{intrestplaceholder}}>
+          <button mdbBtn  [hidden]="intrestbuttons" (click)="addIntrest()" type="button" color="primary" outline="true" mdbWavesEffect>Add intrest</button>
+          <button  mdbBtn [hidden]="intrestbuttons" (click)="removeIntrest()" type="button" color="danger" outline="true" mdbWavesEffect>Remove intrest</button>
+          <button mdbBtn  [hidden]="!intrestbuttons" (click)="addint()" type="button" color="primary" outline="true" mdbWavesEffect>Add </button>
+          <button  mdbBtn [hidden]="!intrestbuttons" (click)="removeint()" type="button" color="danger" outline="true" mdbWavesEffect>Remove </button>
+            </form>
+        </div>
+
+
+      </div>
+
 
       <div class="col-md-7">
         <div class="card" style="margin-left: 10%" >
@@ -110,18 +158,21 @@
           <div class="card-header">
             <h4>Complementary informations</h4>
           </div>
+          <br>
+          <div clas="card-header" style="padding-left: 5%">
+              <h3>Education</h3>
+          </div>
           <div class="card-body" >
-            <div *ngFor="let ed of user?.education " class="card-header" style="margin-top: 2%">
+            <div *ngFor="let ed of user?.education ; let i = index" class="card-header" style="margin-top: 2%">
                 <form *ngIf="user" [formGroup]="educationform">
-                    <label>Education</label>
-                    <input type="text" formControlName="education" class="form-control"  value="{{ed.institution}}">
-                    <div class="form-inline " style="margin-top: 2%" >
+                    <label>Diploma</label>
+                    <input [readOnly]="true" type="text" formControlName="education" class="form-control"  value="{{ed.institution}}">
+                    <div class="form-inline " style="margin-bottom: 2%" >
                         <label for="email">Institution</label>
-                        <input type="text" formControlName="inst" class="form-control" value="{{ed.place}}"  >
-                        <label for="pwd">From / To</label>
-                        <input type="text" formControlName="year" class="form-control" value="{{ed.year}}" >
-                        <button type="button" class="btn btn-success">Edit</button>
-                        <button type="button" class="btn btn-danger">Remove</button>
+                        <input [readOnly]="true" type="text" formControlName="inst" class="form-control" value="{{ed.place}}"  >
+                        <label for="pwd">Year</label>
+                        <input [readOnly]="true" type="text" formControlName="year" class="form-control" value="{{ed.year}}" >
+                        <button type="button"  class="btn btn-danger"(click)="removeEducation(i)" >Remove</button>
 
 
                       </div>
@@ -130,19 +181,64 @@
             </div>
 
 
-            <div class="card-header">
+
+            <div class="card-header" style="margin-top: 2%">
               <form *ngIf="user" [formGroup]="educationform">
-              <label>Education</label>
+              <label>Diploma</label>
               <input type="text" formControlName="education" class="form-control"  value="">
-              <div class="form-inline " style="margin-top: 2%" >
+              <div class="form-inline "  >
                   <label for="email">Institution</label>
                   <input type="text" formControlName="inst" class="form-control"   >
-                  <label for="pwd">From / To</label>
+                  <label for="pwd">Year</label>
                   <input type="text" formControlName="year" class="form-control" >
-                  <button type="submit" (click)="addEducation()" >Add</button>
+                  <br>
+                  <button [disabled]="!educationform.valid" type="Button" (click)="addEducation()" >Add new </button>
                 </div>
               </form>
               </div>
+
+              <br>
+
+
+            </div>
+
+            <div clas="card-header" style="padding-left: 5%">
+              <h3>Experiances</h3>
+          </div>
+          <div class="card-body" >
+            <div *ngFor="let exp of user?.experiance ; let i = index" class="card-header" style="margin-top: 2%">
+                <form *ngIf="user" [formGroup]="educationform">
+                    <label>Experiance</label>
+                    <input [readOnly]="true" type="text" formControlName="education" class="form-control"  value="{{exp.exp}}">
+                    <div class="form-inlines " style="margin-bottom: 2%" >
+                        <label for="pwd">Year</label>
+                        <input [readOnly]="true" type="text" formControlName="year" class="form-control" value="{{exp.expyear}}" >
+                        <button type="button"  class="btn btn-danger"(click)="removeExperiance(i)" >Remove</button>
+
+
+                      </div>
+                    </form>
+
+            </div>
+
+
+
+            <div class="card-header" style="margin-top: 2%">
+              <form *ngIf="user" [formGroup]="educationform">
+              <label>Experiance</label>
+              <input type="text" formControlName="education" class="form-control"  value="">
+              <div class="form-inlines "  >
+                  <label >Year</label>
+                  <input type="text" formControlName="year" class="form-control" value="" >
+                  <br>
+                  <button [disabled]="!educationform.valid" type="Button" (click)="addExperiance()" >Add new </button>
+                </div>
+              </form>
+              </div>
+
+              <br>
+
+
 
             </div>
 

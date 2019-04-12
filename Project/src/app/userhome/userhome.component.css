@@ -11,6 +11,16 @@
   margin: 5px 10px 5px 0;
 }
 
+span.tags
+{
+  display:inline-block;
+  margin-top: 5%;
+    background: #1abc9c;
+    border-radius: 2px;
+    color: #f5f5f5;
+    font-weight: bold;
+    padding: 2px 4px;
+    }
 /* Style the input fields */
 .form-inline input {
   vertical-align: middle;
@@ -27,7 +37,21 @@
   border: 1px solid #ddd;
   color: white;
 }
+.form-inlines input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
 
+/* Style the submit button */
+.form-inlines button {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  border: 1px solid #ddd;
+  color: white;
+}
 .form-inline button:hover {
   background-color: royalblue;
 }

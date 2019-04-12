@@ -23,6 +23,7 @@ router.get('/update', function (req, res) {
   router.get('/update', function (req, res) {
     res.send('user update api');
   });
+
 router.post('/updateImage',upload.single('profileImg'),function(req,res){
   id=req.body.userId;
   User.update({_id:id},{
@@ -94,6 +95,173 @@ router.post('/addEducation',function(req,res){
   }
   }
 });
+
+router.post('/addExperiance',function(req,res){
+  if(!req.body.token){
+    res.json({succes : false , message :'you are not coonected'});
+  }else{
+    if(!req.body.exp ){
+      res.json({succes : false , message :' no data to add'});
+    }else{
+      if(!req.body.userId){
+        res.json({succes : false , message :' no user id provided'});
+      }else{
+      var newExperiance={
+        expyear : req.body.expyear,
+        exp : req.body.exp
+      };
+      User.findByIdAndUpdate(req.body.userId,
+        {$push: {experiance : newExperiance}},
+        {safe: true, upsert: true},
+        function(err, user) {
+            if(err){
+            res.json({succes: false , message : 'could not add experiance'})
+            }else{
+              res.json({succes: true , message : 'experiance added'})
+            }
+        });
+    }
+  }
+  }
+});
+
+router.post('/removeExperiance',function(req,res){
+  if(!req.body.token){
+      res.json({succes : false , message :'you are not connected'});
+  }else{
+   if(!req.body.expId){
+     res.json({succes : false , message :' no data specified to delete'});
+   }else{
+     User.findByIdAndUpdate(req.body.userId,
+      {$pull: {experiance : {_id : req.body.expId}}},
+      function(err, user) {
+          if(err){
+          res.json({succes: false , message : 'could not remove experiance'})
+          }else{
+            res.json({succes: true , message : 'experiance removed'})
+          }
+      });
+   }
+  }
+});
+
+router.post('/removeEducation',function(req,res){
+    if(!req.body.token){
+        res.json({succes : false , message :'you are not connected'});
+    }else{
+     if(!req.body.edId){
+       res.json({succes : false , message :' no data specified to delete'});
+     }else{
+       User.findByIdAndUpdate(req.body.userId,
+        {$pull: {education : {_id : req.body.edId}}},
+        function(err, user) {
+            if(err){
+            res.json({succes: false , message : 'could not remove education'})
+            }else{
+              res.json({succes: true , message : 'education removed'})
+            }
+        });
+     }
+    }
+});
+
+router.post('/addSkill',function(req,res){
+  if(!req.body.token){
+    res.json({succes : false , message :'you are not coonected'});
+  }else{
+    if(!req.body.skillname ){
+      res.json({succes : false , message :' no skill to add'});
+    }else{
+      if(!req.body.userId){
+        res.json({succes : false , message :' no user id provided'});
+      }else{
+      var newSkill={
+        name : req.body.skillname
+      };
+      User.findByIdAndUpdate(req.body.userId,
+        {$push: {skills : newSkill}},
+        {safe: true, upsert: true},
+        function(err, user) {
+            if(err){
+            res.json({succes: false , message : 'could not add skill'})
+            }else{
+              res.json({succes: true , message : 'skill added'})
+            }
+        });
+    }
+  }
+  }
+});
+
+router.post('/removeSkill',function(req,res){
+  if(!req.body.token){
+      res.json({succes : false , message :'you are not connected'});
+  }else{
+   if(!req.body.skillname){
+     res.json({succes : false , message :' no skill specified to delete'});
+   }else{
+     User.findByIdAndUpdate(req.body.userId,
+      {$pull: {skills : {name : req.body.skillname}}},
+      function(err, user) {
+          if(err){
+          res.json({succes: false , message : 'could not remove skill'})
+          }else{
+            res.json({succes: true , message : 'skill removed'})
+          }
+      });
+   }
+  }
+});
+
+
+router.post('/addIntrest',function(req,res){
+  if(!req.body.token){
+    res.json({succes : false , message :'you are not coonected'});
+  }else{
+    if(!req.body.intrestname ){
+      res.json({succes : false , message :' no intrest to add'});
+    }else{
+      if(!req.body.userId){
+        res.json({succes : false , message :' no user id provided'});
+      }else{
+      var newIntrest={
+        name : req.body.intrestname
+      };
+      User.findByIdAndUpdate(req.body.userId,
+        {$push: {intrests : newIntrest}},
+        {safe: true, upsert: true},
+        function(err, user) {
+            if(err){
+            res.json({succes: false , message : 'could not add Intrest'})
+            }else{
+              res.json({succes: true , message : 'intrest added'})
+            }
+        });
+    }
+  }
+  }
+});
+
+router.post('/removeIntrest',function(req,res){
+  if(!req.body.token){
+      res.json({succes : false , message :'you are not connected'});
+  }else{
+   if(!req.body.intrestname){
+     res.json({succes : false , message :' no intrest specified to delete'});
+   }else{
+     User.findByIdAndUpdate(req.body.userId,
+      {$pull: {intrests : {name : req.body.intrestname}}},
+      function(err, user) {
+          if(err){
+          res.json({succes: false , message : 'could not remove intrest'})
+          }else{
+            res.json({succes: true , message : 'intrest removed'})
+          }
+      });
+   }
+  }
+});
+ 
 
 router.post('/fetch',function(req,res){
   if (!req.body.token){
