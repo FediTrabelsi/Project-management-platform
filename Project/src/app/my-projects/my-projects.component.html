@@ -1,0 +1,108 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+  <a class="navbar-brand" href="#">Wait for proj name ....</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <ul class="navbar-nav mr-auto">
+      <li >
+        <a class="nav-link" (click)="logout()" [routerLink]="['/login']">Home</a>
+      </li>
+      <li class="nav-item " >
+        <a class="nav-link" [routerLink]="['/userhome']">Profile</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link " [routerLink]="['/myprojects']">My projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Forum</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()">Logout</a>
+      </li>
+
+
+
+    </ul>
+
+
+
+
+  </div>
+
+</nav>
+
+<section id="profile">
+  <div style="display : inline-block" class="container-fluid">
+    <div class="row">
+    <div  class="col-md-3  " style="margin-left: 5%; ; border: b" >
+      <div class="card-header text-center">
+        <h3 >{{user?.username}}</h3>
+      </div>
+      <div class="text-center">
+        <img  src={{profilepic}} alt="" class="center">
+    </div>
+    <p>Name : </p>
+    <p>{{user?.lastname}}  {{user?.firstname}}</p>
+    <p>Description :</p>
+    <p>{{user?.description}}</p>
+  </div>
+
+
+      <div class="col-md-7">
+        <div class="card" style="margin-left: 10%" >
+
+          <div class="card-header">
+            <h4>My Projects</h4>
+          </div>
+          <div class="card-body">
+
+          </div>
+
+        </div>
+
+        <div class="card" style="margin-left: 10% ; margin-top: 5%" >
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+</section>
+
+<!-- FOOTER -->
+<footer id="main-footer" class="bg-dark text-white mt-5 p-5">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p class="lead text-center">
+          Copyright &copy;
+          <span id="year"></span>
+          Trabelsi Fedi
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+

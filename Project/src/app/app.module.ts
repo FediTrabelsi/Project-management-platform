@@ -12,6 +12,7 @@ import { AuthService} from './services/auth.service';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthGuardService } from './services/auth-guard.service';
+import { MyProjectsComponent } from './my-projects/my-projects.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     RegisterComponent,
     UserhomeComponent,
     HomepageComponent,
+    MyProjectsComponent,
   ],
   imports: [
     MDBBootstrapModule,
