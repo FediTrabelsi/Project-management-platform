@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService} from './../services/auth.service';
 import {Router } from '@angular/router';
 import { UserService} from '../services/userServices/user.service';
+import { ProjectService } from '../services/projectServices/project.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -12,14 +13,34 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class MyProjectsComponent implements OnInit {
   user;
   profilepic;
-
+  projectform : FormGroup;
 
   constructor(
     private _router: Router,
     private authService: AuthService,
-    private userService : UserService
+    private userService : UserService,
+    private projectService : ProjectService,
+    public formBuilder: FormBuilder,
 
-  ) { }
+
+  ) {
+    this.createProjectForm();
+  }
+
+  createProjectForm(){
+    this.projectform= this.formBuilder.group({
+      projectname: ['', Validators.compose([
+
+        Validators.minLength(4),
+        Validators.maxLength(20)
+      ])],
+      description: ['', Validators.compose([
+
+        Validators.minLength(10),
+        Validators.maxLength(50)
+      ])]
+    });
+  }
 
 
   loadProfileData() {
@@ -43,5 +64,38 @@ export class MyProjectsComponent implements OnInit {
     this._router.navigate(['login']);
 
   }
+
+  createProject(){
+;
+    const data={
+      token: localStorage.getItem('token'),
+      userId : JSON.parse(localStorage.getItem('user')).userId,
+      projectname : this.projectform.get('projectname').value,
+      description: this.projectform.get('description').value,
+
+    };
+    this.projectService.createProject(data).subscribe(data=>{
+      if(data['succes']){
+        const dataproj={
+          token: localStorage.getItem('token'),
+          userId : JSON.parse(localStorage.getItem('user')).userId,
+          projectname : this.projectform.get('projectname').value,
+          projectId : data['projectId']
+        }
+        this.userService.addProject(dataproj).subscribe(data =>{
+          if(data['succes']){
+            console.log(data['message']);
+            this.ngOnInit();
+          }else{
+            console.log(data['message']);
+          }
+        });
+
+      }else{
+        console.log(data['message']);
+      }
+    })
+  };
+
 
 }

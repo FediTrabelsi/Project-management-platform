@@ -131,7 +131,7 @@ const userSchema= new Schema({
     projects : [ 
                 { 
                   name : {type: String , default : ""},
-                  id : {type : String , default : ""}
+                  _id : {type : String , default : ""}
                 }
                 ]
 

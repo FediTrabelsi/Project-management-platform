@@ -1,7 +1,9 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 <nav class="navbar navbar-expand-lg navbar-dark primary-color">
 
@@ -45,18 +47,93 @@
 <section id="profile">
   <div style="display : inline-block" class="container-fluid">
     <div class="row">
-    <div  class="col-md-3  " style="margin-left: 5%; ; border: b" >
-      <div class="card-header text-center">
-        <h3 >{{user?.username}}</h3>
+      <div class="col-md-3">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">{{user?.username}}</h4>
+          </div>
+          <div class="panel-body">
+            <div class="profile__avatar">
+              <img src={{profilepic}} alt="...">
+            </div>
+            <div class="profile__header">
+              <h4>{{user?.firstname}} {{user?.lastname}} <br><small>Memeber</small></h4>
+              <p class="text-muted">
+                {{user?.description}}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">User info</h4>
+          </div>
+          <div class="panel-body">
+            <table class="table profile__table">
+              <tbody>
+                <tr>
+                  <th><strong>Country</strong></th>
+                  <td>{{user?.country}}</td>
+                </tr>
+                <tr>
+                  <th><strong>Status</strong></th>
+                  <td>Student</td>
+                </tr>
+                <tr>
+                  <th><strong>Position</strong></th>
+                  <td>2nd year student</td>
+                </tr>
+                <tr>
+                  <th><strong>Age</strong></th>
+                  <td>{{user?.age}}</td>
+                </tr>
+                <tr>
+                  <th><strong>Phone</strong></th>
+                  <td>{{user?.phone}}</td>
+                </tr>
+                <tr>
+                  <th><strong>Email</strong></th>
+                  <td>{{user?.email}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">Community</h4>
+          </div>
+          <div class="panel-body">
+            <table class="table profile__table">
+              <tbody>
+                  <tr>
+                      <th><strong>Member since</strong></th>
+                      <td>{{user?.creationDate}}</td>
+                    </tr>
+                <tr>
+                  <th><strong>Friends</strong></th>
+                  <td>{{user?.friends}}</td>
+                </tr>
+
+                <tr>
+                  <th><strong>Projects</strong></th>
+                  <td>{{user?.projects.length}}</td>
+                </tr>
+                <tr>
+                    <th><strong>Forum contributions</strong></th>
+                    <td>{{user?.contcount}}</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
       </div>
-      <div class="text-center">
-        <img  src={{profilepic}} alt="" class="center">
-    </div>
-    <p>Name : </p>
-    <p>{{user?.lastname}}  {{user?.firstname}}</p>
-    <p>Description :</p>
-    <p>{{user?.description}}</p>
-  </div>
 
 
       <div class="col-md-7">
@@ -66,7 +143,21 @@
             <h4>My Projects</h4>
           </div>
           <div class="card-body">
+              <div class="card-body">
+                  <form  [formGroup]="projectform" >
+                    <div class="form-group">
+                      <label for="name">Project name</label>
+                      <input  formControlName="projectname"  type="text" name="firstname" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">description</label>
+                        <input type="text" formControlName="description" name="lastname" class="form-control" value="">
+                      </div>
+                    <button mdbBtn (click)="createProject()" type="button" color="primary" outline="true" mdbWavesEffect >Create</button>
 
+
+                  </form>
+                </div>
           </div>
 
         </div>

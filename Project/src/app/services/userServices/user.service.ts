@@ -29,6 +29,16 @@ export class UserService {
     });
   }
 
+  addProject(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post('http://localhost:8080/user/addProject', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+
   removeEducation(data){
     let httpParams = new HttpParams();
     Object.keys(data).forEach(function (key) {

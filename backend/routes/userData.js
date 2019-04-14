@@ -213,6 +213,28 @@ router.post('/removeSkill',function(req,res){
   }
 });
 
+router.post('/addProject',function(req,res){
+  if(!req.body.token){
+    res.json({succes : false , message :'you are not coonected'});
+  }else{
+      var newProject={
+        name : req.body.projectname,
+        _id : req.body.projectId
+      };
+      User.findByIdAndUpdate(req.body.userId,
+        {$push: {projects : newProject}},
+        {safe: true, upsert: true},
+        function(err, user) {
+            if(err){
+            res.json({succes: false , message : 'could not add project',err})
+            }else{
+              res.json({succes: true , message : 'project added'})
+            }
+        });
+    }
+  
+  
+});
 
 router.post('/addIntrest',function(req,res){
   if(!req.body.token){
