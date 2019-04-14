@@ -7,12 +7,17 @@ const projectSchema= new Schema({
     projectname : {type : String, required : true, unique : true},
     creationDate : {type : String, required : true},    
     description : {type : String, required : true},
+    technologies : [
+        {name : { type : String ,default:""} } 
+    ],
     creator : { creatorname : {type : String},
-                _id : {type : String}        
+                _id : {type : String},
+                imgsrc : {type : String}         
     },
     members : [{
         _id : {type : String},
         membername :{type : String},
+        imgsrc : {type : String} 
     }],
     attachedFiles : [{
         addDate : {type : String ,default :""},

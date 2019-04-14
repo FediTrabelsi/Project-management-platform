@@ -99,7 +99,8 @@ createEdForm(){
       fd.append('userId',userId);
       this.userService.updateProfileImage(fd).subscribe(data=>{
         console.log(data);
-        this.profilepic="http://localhost:8080/"+data['newsrc'];
+
+        this.loadProfileData();
       });
     }
 

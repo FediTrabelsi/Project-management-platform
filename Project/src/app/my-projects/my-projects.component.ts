@@ -13,6 +13,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class MyProjectsComponent implements OnInit {
   user;
   profilepic;
+  userProjects=null ;
   projectform : FormGroup;
 
   constructor(
@@ -56,7 +57,9 @@ export class MyProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createProjectForm();
     this.loadProfileData();
+    this.fetchMyProjects();
   }
 
   logout() {
@@ -72,6 +75,8 @@ export class MyProjectsComponent implements OnInit {
       userId : JSON.parse(localStorage.getItem('user')).userId,
       projectname : this.projectform.get('projectname').value,
       description: this.projectform.get('description').value,
+      username : JSON.parse(localStorage.getItem('user')).username,
+      imagesrc : this.user['imagesrc']
 
     };
     this.projectService.createProject(data).subscribe(data=>{
@@ -96,6 +101,36 @@ export class MyProjectsComponent implements OnInit {
       }
     })
   };
+
+  removeProject(id){
+    const data={
+      token: localStorage.getItem('token'),
+      userId : JSON.parse(localStorage.getItem('user')).userId,
+      projectId : this.userProjects.projects[id]._id
+    };
+    this.projectService.removeProject(data).subscribe(data =>{
+      console.log(data['message']);
+      if(data['succes']){
+        this.ngOnInit();
+      }
+    })
+  }
+
+  fetchMyProjects(){
+    const data={
+      token: localStorage.getItem('token'),
+      userId : JSON.parse(localStorage.getItem('user')).userId,
+    };
+    this.projectService.fetchMyProjects(data).subscribe(data =>{
+      console.log(data['message']);
+      if(data['succes']){
+        console.log(data);
+        this.userProjects = data;
+      }
+    })
+  }
+
+
 
 
 }
