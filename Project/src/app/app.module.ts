@@ -13,6 +13,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthGuardService } from './services/auth-guard.service';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
+import { ProjectEditComponent } from './project-edit/project-edit.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { MyProjectsComponent } from './my-projects/my-projects.component';
     UserhomeComponent,
     HomepageComponent,
     MyProjectsComponent,
+    ProjectEditComponent,
   ],
   imports: [
     MDBBootstrapModule,

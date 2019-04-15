@@ -94,11 +94,12 @@ router.post('/addMember',function(req,res){
                       };
                     User.findOneAndUpdate({username : req.body.membername},
                         {$push: {projects : newProject }},
-                        {safe: true, upsert: true},
+                        {safe: false, upsert: false},
                         function(err, user) {
                             if(err){
                               res.json({succes: false , message : 'could not find that user'})
                             }else{
+                                if(user!=null){
                                 var newMember={
                                     _id : user._id,
                                     membername : req.body.membername,
@@ -106,15 +107,19 @@ router.post('/addMember',function(req,res){
                                   };
                                 Project.findByIdAndUpdate(req.body.projectId,
                                     {$push: {members : newMember}},
-                                    {safe: true, upsert: true},
-                                    function(err, user) {
+                                    {safe: true, upsert: false},
+                                    function(err, project) {
                                         if(err){
                                         res.json({succes: false , message : 'could not invite that user'})
                                         }else{
                                           res.json({succes: true , message : 'user invited'})
                                         }
                                     });
+                            }else{
+                                res.json({succes: false , message : 'could not find that user'})
+    
                             }
+                        }
                         });
                 
             }
@@ -133,6 +138,92 @@ router.post('/fetchProjects',function(req,res){
                 res.json({succes : true, message : 'projects loaded ' ,projects : projects})
             }
         } );
+    }
+});
+
+router.post('/addTechnologie',function(req,res){
+    if(!req.body.token){
+        res.json({succes : false , message : 'you are not connected'});
+    }else{
+        if(!req.body.projectId){
+            res.json({succes : false , message : 'you have to provide projed Id'});
+        }else{
+            if(!req.body.technologie){
+                res.json({succes : false , message : 'you have to provide the technologie to add'});
+            }else{
+                var newTech={
+                    name : req.body.technologie
+                };
+                Project.findByIdAndUpdate(req.body.projectId,
+                    {$push: {technologies : newTech}},
+                    {safe: true, upsert: true},
+                    function(err, user) {
+                        if(err){
+                        res.json({succes: false , message : 'could not add technologie'})
+                        }else{
+                          res.json({succes: true , message : 'technlogie added'})
+                        }
+                    });
+            }
+        }
+    }
+});
+
+router.post('/removeTechnologie',function(req,res){
+    if(!req.body.token){
+        res.json({succes : false , message : 'you are not connected'});
+    }else{
+        if(!req.body.projectId){
+            res.json({succes : false , message : 'you have to provide projed Id'});
+        }else{
+            if(!req.body.technologie){
+                res.json({succes : false , message : 'you have to provide the technologie to remove'});
+            }else{
+                var newTech={
+                    name : req.body.technologie
+                };
+                Project.findByIdAndUpdate(req.body.projectId,
+                    {$pull: {technologies :{name : req.body.technologie} }},
+                    {safe: true, upsert: true},
+                    function(err, user) {
+                        if(err){
+                        res.json({succes: false , message : 'could not remove technologie'})
+                        }else{
+                          res.json({succes: true , message : 'technlogie removed'})
+                        }
+                    });
+            }
+        }
+    }
+});
+
+router.post('/updateGeneralData',function(req,res){
+    if(!req.body.token){
+        res.json({succes : false , message : 'you are not connected'});
+    }else{
+        if(!req.body.projectId){
+            res.json({succes : false , message : 'you have to provide project Id'});
+        }else{
+        if(!req.body.projectname){
+            res.json({succes : false , message : 'you have to provide project name'});
+        }else{
+            if(!req.body.description){
+                res.json({succes : false , message : 'you have to provide project descripton'});
+            }else{
+                Project.update({_id : req.body.projectId},{
+                    projectname : req.body.projectname,
+                    description : req.body.description
+                }, function(err, affected, resp) {
+                    if(err){
+                    res.json({succes : false , message : 'could not update due to error'});}
+                    else{
+                      res.json({succes : true , message : 'project name and description updated' });
+                    }
+                 });
+
+            }
+        }
+    }
     }
 });
 

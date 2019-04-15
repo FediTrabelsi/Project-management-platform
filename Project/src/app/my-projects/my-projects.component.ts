@@ -130,6 +130,13 @@ export class MyProjectsComponent implements OnInit {
     })
   }
 
+  editProject(id){
+       localStorage.setItem('projectId', id);
+       this._router.navigate(['/editproject']);
+
+
+  }
+
 
 
 

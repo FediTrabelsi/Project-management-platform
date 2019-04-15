@@ -36,4 +36,44 @@ export class ProjectService {
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
+
+  addTechnologie(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post('http://localhost:8080/projects/addTechnologie', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+
+  addMember(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post('http://localhost:8080/projects/addMember', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+
+  removeTechnologie(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post('http://localhost:8080/projects/removeTechnologie', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+
+  updateGeneralData(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post('http://localhost:8080/projects/updateGeneralData', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
 }

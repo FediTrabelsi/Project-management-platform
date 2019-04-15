@@ -140,62 +140,46 @@
         <div class="card" style="margin-left: 10%" >
 
           <div class="card-header">
-            <h4>Create new project</h4>
+            <h3>{{userProjects?.projects[projectId].projectname}}</h3>
           </div>
-
-
           <div class="card-body">
-              <div class="card-body">
-                  <form  [formGroup]="projectform" >
-                    <div class="form-group">
-                      <label for="name">Project name</label>
-                      <input  formControlName="projectname"  type="text" name="firstname" class="form-control" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">description</label>
-                        <input type="text" formControlName="description" name="lastname" class="form-control" value="">
-                      </div>
-                    <button mdbBtn (click)="createProject()" type="button" color="primary" outline="true" mdbWavesEffect >Create</button>
-
-
-                  </form>
+            <h4>General informations</h4>
+          </div>
+          <div class="card-body">
+          <form *ngIf="userProjects" [formGroup]="generalform" >
+              <div class="form-group">
+                <label for="name">Project name</label>
+                <input [readOnly]="generalFormEditable"   formControlName="projectname"  type="text" name="firstname" class="form-control" >
+              </div>
+              <div class="form-group">
+                  <label for="name">Description</label>
+                  <input  [readOnly]="generalFormEditable" formControlName="description"  type="text" name="firstname" class="form-control" >
                 </div>
-          </div>
-
-        </div>
-
-        <div class="card" style="display:inline-block; margin-left: 10% ; margin-top: 5%" >
-          <div class="card-header">
-            <h4>My projects</h4>
-          </div>
-          <div class="card-body">
-
-
-          <div  *ngFor="let proj of userProjects?.projects ; let i = index ;" class="col-md-6">
-              <div class="thumbnail">
-                  <div class="caption">
-                    <div class='col-lg-12'>
+                <button mdbBtn [hidden]="!edit" (click)="onEdit()" type="button" color="primary" rounded="true" outline="true" mdbWavesEffect>{{generalbutton}}</button>
+                <button mdbBtn  [hidden]="!save" (click)="updateGeneralData()" type="button" color="success" outline="true" mdbWavesEffect>Save</button>
+              <button  mdbBtn [hidden]="!cancel" (click)="onCancel()" type="button" color="danger" outline="true" mdbWavesEffect>Cancel</button>
+                <div class="form-group" style="margin-top: 3%">
+                    <label for="name">Technologies</label>
+                    <p >
+                        <span class="tags" style="white-space:pre-wrap; margin-right: 1.5%" *ngFor="let technologie of userProjects?.projects[projectId].technologies ; let i = index"  >{{technologie?.name}}</span>
+                    </p>
+                    <input [hidden]="!tech" type="text" formControlName="technologies" name="country" class="form-control" placeholder={{techplaceholder}}>
+                    <button mdbBtn  [hidden]="techbuttons" (click)="addTech()" type="button" color="primary" outline="true" mdbWavesEffect>Add / Remove technologie</button>
+                    <button mdbBtn  [hidden]="!techbuttons" (click)="add()" type="button" color="primary" outline="true" mdbWavesEffect>Add </button>
+                    <button  mdbBtn [hidden]="!techbuttons" (click)="remove()" type="button" color="danger" outline="true" mdbWavesEffect>Remove </button>
                     </div>
-                    <div class='col-lg-12 well well-add-card'>
-                        <h4>{{proj?.projectname}}</h4>
-                    </div>
-                    <div class='col-lg-12'>
-                        <p>{{proj?.description}}</p>
-                        <p class="text-muted">Creation date : {{proj?.creationDate}}</p>
-                    </div>
-                    <div class='col-lg-12'>
-                        <p>Team members</p>
+                    <label >Team members</label>
                         <ul class="list-group" id="contact-list">
                             <li class="list-group-item">
                                 <div class="col-xs-12 col-sm-3">
-                                    <img src="http://localhost:8080/{{proj?.creator.imgsrc}}" width="30" height="30"  class="img-responsive img-circle" />
+                                    <img src="http://localhost:8080/{{userProjects.projects[projectId].creator?.imgsrc}}" width="30" height="30"  class="img-responsive img-circle" />
                                 </div>
                                 <div class="col-xs-12 col-sm-9">
-                                    <span class="name">{{proj?.creator.creatorname}}</span>
+                                    <span class="name">{{userProjects.projects[projectId].creator?.creatorname}}</span>
                                 </div>
                                 <div class="clearfix"></div>
                             </li>
-                            <li *ngFor="let mem of proj?.members" class="list-group-item">
+                            <li *ngFor="let mem of userProjects.projects[projectId]?.members" class="list-group-item">
                                 <div class="col-xs-12 col-sm-3">
                                     <img src="http://localhost:8080/{{mem.imgsrc}}" width="30" height="30"  class="img-responsive img-circle" />
                                 </div>
@@ -205,17 +189,19 @@
                                 <div class="clearfix"></div>
                             </li>
                             </ul>
-                    </div>
-                    <button type="button" (click)="editProject(i)" class="btn btn-primary btn-xs btn-update btn-add-card">Edit</button>
-                    <button type="button" (click)="removeProject(i)" class="btn btn-danger btn-xs btn-update btn-add-card">Delete</button>
-                </div>
+                            <input [hidden]="!member"  type="text" formControlName="membername"  class="form-control" placeholder={{memberplaceholder}} >
+                            <button mdbBtn (click)="showaddmember()" [hidden]="memberbutton" type="button" color="primary" rounded="true" outline="true" mdbWavesEffect>Add members</button>
+                            <button mdbBtn (click)="addMember()" [hidden]="!memberbutton" type="button" color="primary" rounded="true" outline="true" mdbWavesEffect>Send invitation</button>
+
+
+              </form>
               </div>
-              </div>
-
-          </div>
 
 
-          </div>
+
+        </div>
+
+
         </div>
       </div>
 
