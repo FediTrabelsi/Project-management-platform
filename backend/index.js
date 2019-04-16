@@ -11,6 +11,8 @@ const cors= require('cors');
 
 mongoose.Promise=global.Promise;
 app.use('/uploads',express.static('uploads'))
+app.use('/projectUploads',express.static('projectUploads'))
+
 mongoose.connect(config.uri,(err) => {
     if (err){
         console.log('Could not connect to db',err);

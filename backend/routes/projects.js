@@ -7,6 +7,82 @@ const config=require('../../config/database');
 const multer = require('multer');
 const path = require('path');
 
+const storage = multer.diskStorage({
+    destination : function(req,file,cb){
+      cb(null,'./projectUploads/');
+    },
+    filename: function(req,file,cb){
+      cb(null,file.originalname);
+    }
+  });
+  const upload = multer({storage : storage});
+
+
+  router.post('/uploadFile',upload.single('file'),function(req,res){
+    id=req.body.projectId;
+    if(!req.body.token){
+        res.json({succes: false , message :'you are not connected'})
+    }else{
+        if(!req.body.projectId){
+            res.json({succes: false , message : 'you have to provide project Id'})
+        }else{
+            if(!req.body.username){
+                res.json({succes:false , message : 'you have to provide uploader name'});
+            }else{
+                const newFile= {
+                    addDate : getDateTime(),
+                    filename : req.file.originalname,
+                    filesrc : "http://localhost:8080/projectUploads/"+req.file.originalname,
+                    description : req.body.description,
+                    uploader : req.body.username
+                };
+                Project.findByIdAndUpdate(id,
+                    {$push : {attachedFiles : newFile}},
+                    {safe: true, upsert: false},
+                    function(err, project) {
+                        if(err){
+                        res.json({succes: false , message : 'could not upload'})
+                        }else{
+                          res.json({succes: true , message : 'file uploaded'})
+                        }
+                    });
+            }
+        }
+    }
+   
+    
+  
+  });  
+
+  router.post('/removeFile',function(req,res){
+    if(!req.body.token){
+        res.json({succes: false , message: 'you are not connected'});
+    }else{
+        if(!req.body.projectId){
+            res.json({succes: false , message: 'you have to provide project Id'});
+        }else{
+            if(!req.body.username){
+                res.json({succes: false , message: 'you have to provide your username'});
+            }else{
+               if(!req.body.fileId){
+                   res.json({succes : false , message : 'you have to provide file Id'})
+               }else{
+                Project.findByIdAndUpdate(req.body.projectId,
+                    {$pull : {attachedFiles :{_id : req.body.fileId }}},
+                    {safe: true, upsert: false},
+                    function(err, project) {
+                        if(err){
+                        res.json({succes: false , message : 'could not remove the file'})
+                        }else{
+                          res.json({succes: true , message : 'file removed'})
+                        }
+                    });
+               }
+            }
+        }
+    }
+  });
+
 router.post('/createProject', function (req, res) {  
     if(!req.body.token){
         res.json({succes : false , message :'you are not coonected'});
@@ -226,6 +302,9 @@ router.post('/updateGeneralData',function(req,res){
     }
     }
 });
+
+
+
 
 function getDateTime() {
 

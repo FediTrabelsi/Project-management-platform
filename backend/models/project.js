@@ -21,9 +21,10 @@ const projectSchema= new Schema({
     }],
     attachedFiles : [{
         addDate : {type : String ,default :""},
-        filesrc : {type : String ,default :""},
-        filename : {type : String,default :""},
-        description : {type : String ,default :"" }
+        filesrc : {type : String ,default :"", unique: true},
+        filename : {type : String,default :"", unique : true},
+        description : {type : String ,default :"" },
+        uploader : {type : String , required :true}
     }],
     tasks : [{
         addDate : {type : String},

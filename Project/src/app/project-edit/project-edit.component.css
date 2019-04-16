@@ -1,3 +1,34 @@
+.productbox {
+  background-color:#ffffff;
+  padding:10px;
+margin:5px 0;
+  border: 1px solid #cfcfcf;
+  -moz-box-shadow: 2px 2px 4px 0px #cfcfcf;
+  -webkit-box-shadow: 2px 2px 4px 0px #cfcfcf;
+  -o-box-shadow: 2px 2px 4px 0px #cfcfcf;
+  box-shadow: 2px 2px 4px 0px #cfcfcf;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=134, Strength=4);
+}
+
+.producttitle {
+  font-weight:bold;
+  font-size:1.2em;
+padding:5px 0 5px 0;
+}
+
+.producttext {
+
+}
+
+.productprice {
+border-top:1px solid #dadada;
+padding-top:5px;
+}
+
+.pricetext {
+font-weight:bold;
+font-size:1.4em;
+}
 .center {
   display: block;
   margin-left: auto;

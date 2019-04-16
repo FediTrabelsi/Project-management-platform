@@ -196,13 +196,62 @@
 
               </form>
               </div>
+        </div>
+
+        <div class="card" style="margin-left: 10%; margin-top: 5%" >
+
+          <div class="card-header">
+            <h3>Shared files</h3>
+          </div>
+
+          <div class="card-body">
+            <div class="productbox">
+            <h4> Upload new file </h4>
+            <br>
+            <form  [formGroup]="fileform">
+            <label for="bio">Description</label><br>
+            <textarea  class="form-control"  formControlName="filedesc" name="description" placeholder="provide a description to the file"></textarea>
+            <label class="btn btn-default">
+              Upload <input type="file" hidden  (change)="onFileSelected($event)">
+          </label>
+          </form>
+        </div>
+          <div style="margin-top: 5%" >
+           <label>Existing files</label>
+           <div *ngFor="let file of userProjects?.projects[projectId]?.attachedFiles ; let i = index ;" style="margin-top: 3%" class="col-md-12">
+            <div class="productbox">
+
+              <div class="producttitle">File name</div>
+              <address>{{file?.filename}}</address>
+              <b class="text-justify">Description</b><br>
+              <address>
+                {{file?.description}}
+              </address>
+
+              <address>
+                <strong>Link</strong><br>
+                <a href="{{file?.filesrc}}">click here to download</a>
+              </address>
+              <div class="productprice">
+                  <div class="pull-right">
+                      <a *ngIf="file.uploader===user?.username" (click)="removeFile(i)" class="btn btn-danger btm-sm" role="button">Remove</a>
+                  </div>
+                  <div class="pricetext">
+                      <a href="#" class="btn btn-warning btm-sm" role="button">Edit <span class="glyphicon glyphicon-cog"></span></a>
+                  </div>
+
+                  </div>
+            </div>
+          </div>
+          </div>
+          </div>
+
+        </div>
 
 
 
         </div>
 
-
-        </div>
       </div>
 
     </div>

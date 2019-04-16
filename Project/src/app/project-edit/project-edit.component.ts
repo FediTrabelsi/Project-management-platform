@@ -16,6 +16,7 @@ export class ProjectEditComponent implements OnInit {
   userProjects=null ;
   projectId ;
   generalform: FormGroup;
+  fileform : FormGroup;
   generalFormEditable =true ;
   edit = true;
   cancel = false;
@@ -34,7 +35,59 @@ export class ProjectEditComponent implements OnInit {
     private userService : UserService,
     private projectService : ProjectService,
     public formBuilder: FormBuilder
-    ) { this.createGeneralForm()}
+    ) { this.createGeneralForm();
+        this.createFileForm();
+    }
+
+    onFileSelected(event){
+      const fileToUpload= <File> event.target.files[0];
+      const description = this.fileform.get('filedesc').value;
+      const fd = new FormData();
+      console.log(this.user);
+
+      if(fileToUpload!=null){
+        const username = JSON.parse(localStorage.getItem('user')).username;
+        const token= localStorage.getItem('token')
+        const projectId = this.userProjects.projects[this.projectId]._id;
+        fd.append('file',fileToUpload,event.target.files[0].name);
+        fd.append('username',username);
+        fd.append('token',token);
+        fd.append('description',description);
+        fd.append('projectId',projectId);
+        this.projectService.updateFile(fd).subscribe(data=>{
+          console.log(data['message']);
+
+          this.ngOnInit();
+        });
+      }
+
+    }
+
+
+    removeFile(id){
+      const data={
+        token : localStorage.getItem('token'),
+        username : JSON.parse(localStorage.getItem('user')).username,
+        projectId : this.userProjects.projects[this.projectId]._id,
+        fileId : this.userProjects.projects[this.projectId].attachedFiles[id]._id
+      };
+      this.projectService.removeFile(data).subscribe(data=>{
+        console.log(data['message']);
+        if(data['succes']){
+          this.ngOnInit();
+        }
+      });
+    };
+
+    createFileForm(){
+      this.fileform= this.formBuilder.group({
+        filedesc: ['', Validators.compose([
+
+          Validators.minLength(8),
+          Validators.maxLength(40)
+        ])]
+      });
+    }
 
     createGeneralForm(){
       const data = {
@@ -73,6 +126,7 @@ export class ProjectEditComponent implements OnInit {
     this.createGeneralForm();
     this.loadProfileData();
     this.fetchMyProjects();
+    this.createFileForm();
   }
 
   logout() {

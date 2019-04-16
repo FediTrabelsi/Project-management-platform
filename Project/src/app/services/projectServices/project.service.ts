@@ -17,6 +17,21 @@ export class ProjectService {
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
+
+  updateFile(data){
+
+    return this.http.post('http://localhost:8080/projects/uploadFile', data);
+  }
+
+  removeFile(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post('http://localhost:8080/projects/removeFile', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
   removeProject(data){
     let httpParams = new HttpParams();
     Object.keys(data).forEach(function (key) {
