@@ -9,7 +9,6 @@ import {  ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService} from './services/auth.service';
-import { HomepageComponent } from './homepage/homepage.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthGuardService } from './services/auth-guard.service';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
@@ -24,7 +23,6 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
     LoginComponent,
     RegisterComponent,
     UserhomeComponent,
-    HomepageComponent,
     MyProjectsComponent,
     ProjectEditComponent,
     WelcomePageComponent,
