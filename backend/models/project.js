@@ -20,11 +20,11 @@ const projectSchema= new Schema({
         imgsrc : {type : String} 
     }],
     attachedFiles : [{
-        addDate : {type : String ,default :""},
-        filesrc : {type : String ,default :"", unique: true},
-        filename : {type : String,default :"", unique : true},
-        description : {type : String ,default :"" },
-        uploader : {type : String , required :true}
+        addDate : {type : String },
+        filesrc : {type : String },
+        filename : {type : String},
+        description : {type : String },
+        uploader : {type : String }
     }],
     tasks : [{
         addDate : {type : String},

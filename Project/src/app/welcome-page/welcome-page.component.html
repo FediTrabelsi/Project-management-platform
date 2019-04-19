@@ -58,7 +58,7 @@
               <img src={{profilepic}} alt="...">
             </div>
             <div class="profile__header">
-              <h4>{{user?.firstname}} {{user?.lastname}} <br><small>Member</small></h4>
+              <h4>{{user?.firstname}} {{user?.lastname}} <br><small>Memeber</small></h4>
               <p class="text-muted">
                 {{user?.description}}
               </p>
@@ -140,77 +140,44 @@
         <div class="card" style="margin-left: 10%" >
 
           <div class="card-header">
-            <h4>Create new project</h4>
+            <h4>Friends invitations</h4>
           </div>
 
 
           <div class="card-body">
-              <div class="card-body">
-                  <form  [formGroup]="projectform" >
-                    <div class="form-group">
-                      <label for="name">Project name</label>
-                      <input  formControlName="projectname"  type="text" name="firstname" class="form-control" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">description</label>
-                        <input type="text" formControlName="description" name="lastname" class="form-control" value="">
-                      </div>
-                    <button mdbBtn (click)="createProject()" type="button" color="primary" outline="true" mdbWavesEffect >Create</button>
-
-
-                  </form>
-                </div>
+              
           </div>
 
         </div>
 
-        <div class="card" style="display:inline-block; margin-left: 10% ; margin-top: 5%" >
+        <div class="card" style=" margin-left: 10% ; margin-top: 5%" >
           <div class="card-header">
-            <h4>My projects</h4>
+            <h4>Project invitations</h4>
           </div>
           <div class="card-body">
-
-
-          <div  *ngFor="let proj of userProjects?.projects ; let i = index ;" class="col-md-6">
-              <div class="thumbnail">
-                  <div class="caption">
-                    <div class='col-lg-12'>
-                    </div>
-                    <div class='col-lg-12 well well-add-card'>
-                        <h4>{{proj?.projectname}}</h4>
-                    </div>
-                    <div class='col-lg-12'>
-                        <p>{{proj?.description}}</p>
-                        <p class="text-muted">Creation date : {{proj?.creationDate}}</p>
-                    </div>
-                    <div class='col-lg-12'>
-                        <p>Team members</p>
-                        <ul class="list-group" id="contact-list">
-                            <li class="list-group-item">
-                                <div class="col-xs-12 col-sm-3">
-                                    <img src="http://localhost:8080/{{proj?.creator.imgsrc}}" width="30" height="30"  class="img-responsive img-circle" />
-                                </div>
-                                <div class="col-xs-12 col-sm-9">
-                                    <span class="name">{{proj?.creator.creatorname}}</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </li>
-                            <li *ngFor="let mem of proj?.members" class="list-group-item">
-                                <div class="col-xs-12 col-sm-3">
-                                    <img src="http://localhost:8080/{{mem.imgsrc}}" width="30" height="30"  class="img-responsive img-circle" />
-                                </div>
-                                <div class="col-xs-12 col-sm-9">
-                                    <span class="name">{{mem.membername}}</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </li>
-                            </ul>
-                    </div>
-                    <button type="button" (click)="editProject(i)" class="btn btn-primary btn-xs btn-update btn-add-card">Edit</button>
-                    <button type="button" (click)="removeProject(i)" class="btn btn-danger btn-xs btn-update btn-add-card">Delete</button>
+           <div class="col-md-4" *ngFor="let invi of user?.invitations; let i = index ;"style="margin-bottom : 3% ;margin-top : 3% ; margin-right : 3%">
+          <div class="productbox">
+            <img src="http://localhost:8080/{{invi.imagesrc}}" width="50" height="50" class="img-responsive img-circle">
+            <br>
+             <strong>Details</strong><br>
+            <p class="text-justify">{{invi.description}}</p><br>
+            
+            
+            <address>
+              <strong>Profile link</strong><br>
+              <a >Click here to view profile</a>
+            </address>
+            <div class="productprice">
+                <div class="pull-right">
+                    <a (click)="acceptProject(i)" class="btn btn-success btm-sm" role="button">Accept </a>
                 </div>
-              </div>
-              </div>
+                <div class="pricetext">
+                    <a  (click)="declineProject(i)" class="btn btn-warning btm-sm" role="button">Dicline  </a>
+                </div>
+                    
+                </div>
+          </div>
+        </div>
 
           </div>
 

@@ -110,6 +110,7 @@
             <h4>Basic Informations</h4>
           </div>
           <div class="card-body">
+            <p *ngFor="let invi of user?.invitations">{{invi.description}} + {{invi.type}}</p>
             <form *ngIf="user" [formGroup]="formprofile" >
               <div class="form-group">
                 <label for="name">First name</label>

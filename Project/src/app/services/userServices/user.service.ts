@@ -29,6 +29,16 @@ export class UserService {
     });
   }
 
+  inviteUser(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post('http://localhost:8080/user/inviteUser', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+
   addProject(data){
     let httpParams = new HttpParams();
     Object.keys(data).forEach(function (key) {

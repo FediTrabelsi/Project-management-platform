@@ -96,6 +96,10 @@ router.post('/addEducation',function(req,res){
   }
 });
 
+router.get('/getNumber',function(req,res){
+  res.send({number : 13})
+});
+
 router.post('/addExperiance',function(req,res){
   if(!req.body.token){
     res.json({succes : false , message :'you are not coonected'});
@@ -306,6 +310,76 @@ router.post('/fetch',function(req,res){
   }
 }
 
-})
+});
+
+router.post('/inviteUser',function(req,res){
+    if(!req.body.token){
+      res.json({success: false, message:'you are not connected'});
+    }else{
+      if(!req.body.Id){
+        res.json({success: false, message:'you have and id '});
+      }else{
+        if(!req.body.imagesrc){
+          res.json({success: false, message:'you have to provide sender profile image'});
+        }else{
+          if(!req.body.type){
+            res.json({success: false, message:'you have to specify invitation type'});
+          }else{
+            if(!req.body.description){
+              res.json({success: false, message:'you have to provide a description'});
+            }else{
+              if(!req.body.membername){
+                res.json({succes: false, message : 'you have to provide the usernmae of the recipient'})
+              }else{
+                let newInvitation = {
+                  type : req.body.type,
+                  description: req.body.description,
+                  invitedTo : req.body.Id,
+                  sendDate : getDateTime(),
+                  imagesrc : req.body.imagesrc
+                }
+                User.update({username : req.body.membername},
+                  {$push: {invitations : newInvitation}},
+                  {safe: true, upsert: false},
+                  function(err, user) {
+                      if(err || user.nModified===0){
+                      res.json({succes: false , message : 'could not invite that user'})
+                      }else{
+                        res.json({succes: true , message : 'user invited'+JSON.stringify(user)})
+                      }
+                  });
+              }
+            }
+          }
+        }
+      }
+    }
+});
+
+function getDateTime() {
+
+  var date = new Date();
+
+  var hour = date.getHours();
+  hour = (hour < 10 ? "0" : "") + hour;
+
+  var min  = date.getMinutes();
+  min = (min < 10 ? "0" : "") + min;
+
+  var sec  = date.getSeconds();
+  sec = (sec < 10 ? "0" : "") + sec;
+
+  var year = date.getFullYear();
+
+  var month = date.getMonth() + 1;
+  month = (month < 10 ? "0" : "") + month;
+
+  var day  = date.getDate();
+  day = (day < 10 ? "0" : "") + day;
+
+  return year + ":" + month + ":" + day ;
+
+}
+
 
 module.exports = router;

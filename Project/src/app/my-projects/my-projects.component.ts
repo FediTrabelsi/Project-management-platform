@@ -97,7 +97,7 @@ export class MyProjectsComponent implements OnInit {
         });
 
       }else{
-        console.log(data['message']);
+        console.log(data);
       }
     })
   };

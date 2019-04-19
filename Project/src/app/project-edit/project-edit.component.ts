@@ -251,11 +251,14 @@ export class ProjectEditComponent implements OnInit {
 
     const data={
       token: localStorage.getItem('token'),
+      type :"project",
       membername : this.generalform.get('membername').value,
-      projectId : this.userProjects.projects[this.projectId]._id,
-      projectname : this.userProjects.projects[this.projectId].projectname
+      Id : this.userProjects.projects[this.projectId]._id,
+      imagesrc : this.user.imagesrc,
+      description :"The user  "+this.user.username+" invited you to join the project : "+this.userProjects.projects[this.projectId].projectname
     };
-    this.projectService.addMember(data).subscribe( data => {
+    this.userService.inviteUser(data).subscribe( data => {
+      console.log(data['message'])
       this.memberplaceholder = data['message'];
       console.log(data['message']);
       if(data['succes']){

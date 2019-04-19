@@ -107,7 +107,7 @@ const userSchema= new Schema({
     username: {type : String, required : true, unique : true, validate : usernameValidators},
     firstname : {type : String ,default :""},
     lastname : {type : String ,default :""},
-    password : {type : String, required : true, unique : true,validate : passwordValidators},
+    password : {type : String, required : true,validate : passwordValidators},
     email : {type : String, required : true, unique : true, validate : emailValidators},
     creationDate : {type : String, required : true},
     phone : {type : String ,default :""},
@@ -133,7 +133,20 @@ const userSchema= new Schema({
                   name : {type: String , default : ""},
                   _id : {type : String , default : ""}
                 }
-                ]
+                ],
+    invitations:[ { type : {type : String , default : ""},
+                    invitedTo : {type : String , default : ""},
+                    sendDate :{type : String, default : ""},
+                    imagesrc : {type : String, default : ""},
+                    description:{type : String , default : ""}
+    }
+    ],
+    friends : [{
+                 name : {type : String, default: ""},
+                imagesrc : {type : String, default: ""}
+
+    }]            
+
 
 
 });

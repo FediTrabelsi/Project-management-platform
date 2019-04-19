@@ -95,7 +95,7 @@ router.post('/createProject', function (req, res) {
             }else{
                 let project= new Project({
                     projectname: req.body.projectname,
-                    creationDate:getDateTime(),
+                    creationDate: getDateTime(),
                     description:req.body.description,
                     creator : { creatorname : req.body.username ,
                                 _id : req.body.userId,
@@ -105,7 +105,7 @@ router.post('/createProject', function (req, res) {
                 });
                 project.save((err) => {
                     if(err){
-                            res.json({success:false,message :'could not create project',err});
+                            res.json({succes:false,message :'could not create project',err});
                             
                         }else{
                             res.json({succes : true , message : 'project was created', projectId :project._id});
@@ -133,7 +133,7 @@ router.post('/removeProject', function (req, res) {
                     if(err){
                         res.json({succes : false , message : 'could not delete project',err});
                     }else{
-                        User.findByIdAndUpdate(req.body.userId,
+                        User.updateMany({},
                             {$pull: {projects : {_id : req.body.projectId}}},
                             function(err, user) {
                                 if(err){
@@ -152,51 +152,76 @@ router.post('/removeProject', function (req, res) {
   
 });
 
-router.post('/addMember',function(req,res){
+router.post('/removeFromInvitations',function(req,res){
     if(!req.body.token){
         res.json({succes : false , message : 'you are not connected'});
     }else{
-        if(!req.body.membername){
+        if(!req.body.username){
+            res.json({succes : false , message : 'you have to provide a member name'});
+        }else{
+            if(!req.body.notificationId){
+                res.json({succes : false , message : 'you have to provide invitation id'});
+                
+            }else{
+                 User.findOneAndUpdate({username : req.body.username},
+                                    {$pull: {invitations : {_id : req.body.notificationId}}},
+                                    {safe: true, upsert: false},
+                                    function(err, project) {
+                                        if(err){
+                                            res.json({succes : false , message : 'you could not remove invitation'});
+                                        }else{
+                                            res.json({succes : true , message : 'invitation removed'});
+                                        }
+                                    });
+            
+
+            }
+        } 
+    }
+});
+
+router.post('/acceptProject',function(req,res){
+    if(!req.body.token){
+        res.json({succes : false , message : 'you are not connected'});
+    }else{
+        if(!req.body.username){
             res.json({succes : false , message : 'you have to provide a member name'});
         }else{
             if(!req.body.projectId){
                 res.json({succes : false , message : 'you have to provide project id'});
                 
             }else{
-                
-                    var newProject={
-                        _id : req.body.projectId,
-                        name : req.body.projectname
-                      };
-                    User.findOneAndUpdate({username : req.body.membername},
-                        {$push: {projects : newProject }},
-                        {safe: false, upsert: false},
-                        function(err, user) {
-                            if(err){
-                              res.json({succes: false , message : 'could not find that user'})
-                            }else{
-                                if(user!=null){
-                                var newMember={
-                                    _id : user._id,
-                                    membername : req.body.membername,
-                                    imgsrc : user.imagesrc
+                var newMember={
+                                    _id : req.body.userId,
+                                    membername : req.body.username,
+                                    imgsrc : req.body.imgsrc
                                   };
                                 Project.findByIdAndUpdate(req.body.projectId,
                                     {$push: {members : newMember}},
                                     {safe: true, upsert: false},
                                     function(err, project) {
                                         if(err){
-                                        res.json({succes: false , message : 'could not invite that user'})
+                                        res.json({succes: false , message : 'could not invite to that project'})
                                         }else{
-                                          res.json({succes: true , message : 'user invited'})
+                                        var newProject={
+                                             _id : req.body.projectId,
+                                             name : project.projectname
+                                                         };
+                                        User.findOneAndUpdate({username : req.body.username},
+                                            {$push: {projects : newProject }},
+                                            
+                                            {safe: false, upsert: false},
+                                            function(err, user) {
+                                                if(err){
+                                                    res.json({succes: false , message : 'could not add the project'})
+                                                }else{
+                                                     res.json({succes: true , message : 'add the project'})
+                                                }
+                                            });  
+
+                                          
                                         }
                                     });
-                            }else{
-                                res.json({succes: false , message : 'could not find that user'})
-    
-                            }
-                        }
-                        });
                 
             }
         }

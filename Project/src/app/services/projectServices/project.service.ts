@@ -18,6 +18,27 @@ export class ProjectService {
     });
   }
 
+
+  acceptProject(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post('http://localhost:8080/projects/acceptProject', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+
+   removeFromInvitations(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post('http://localhost:8080/projects/removeFromInvitations', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+
   updateFile(data){
 
     return this.http.post('http://localhost:8080/projects/uploadFile', data);
