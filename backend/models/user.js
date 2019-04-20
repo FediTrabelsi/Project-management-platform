@@ -129,7 +129,7 @@ const userSchema= new Schema({
     skills : [ {name : { type : String ,default:""} } ],
     intrests : [ { name : {type: String , default : ""} } ],
     projects : [ 
-                { 
+                { description: {type : String,default: ""},
                   name : {type: String , default : ""},
                   _id : {type : String , default : ""}
                 }
@@ -138,7 +138,8 @@ const userSchema= new Schema({
                     invitedTo : {type : String , default : ""},
                     sendDate :{type : String, default : ""},
                     imagesrc : {type : String, default : ""},
-                    description:{type : String , default : ""}
+                    description:{type : String , default : ""},
+                    sender: {type : String, default :""}
     }
     ],
     friends : [{

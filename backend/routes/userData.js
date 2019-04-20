@@ -222,6 +222,7 @@ router.post('/addProject',function(req,res){
     res.json({succes : false , message :'you are not coonected'});
   }else{
       var newProject={
+        description:req.body.description,
         name : req.body.projectname,
         _id : req.body.projectId
       };
@@ -336,7 +337,8 @@ router.post('/inviteUser',function(req,res){
                   description: req.body.description,
                   invitedTo : req.body.Id,
                   sendDate : getDateTime(),
-                  imagesrc : req.body.imagesrc
+                  imagesrc : req.body.imagesrc,
+                  sender : req.body.userId
                 }
                 User.update({username : req.body.membername},
                   {$push: {invitations : newInvitation}},

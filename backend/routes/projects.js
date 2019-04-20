@@ -204,6 +204,7 @@ router.post('/acceptProject',function(req,res){
                                         res.json({succes: false , message : 'could not invite to that project'})
                                         }else{
                                         var newProject={
+                                            description: project.description,
                                              _id : req.body.projectId,
                                              name : project.projectname
                                                          };

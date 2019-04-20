@@ -14,6 +14,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
 import { ProjectEditComponent } from './project-edit/project-edit.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { ViewProfilesComponent } from './view-profiles/view-profiles.component';
 
 
 
@@ -26,6 +27,7 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
     MyProjectsComponent,
     ProjectEditComponent,
     WelcomePageComponent,
+    ViewProfilesComponent,
   ],
   imports: [
     MDBBootstrapModule,

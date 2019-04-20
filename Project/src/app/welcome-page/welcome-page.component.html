@@ -18,12 +18,12 @@
 
     <ul class="navbar-nav mr-auto">
       <li >
-        <a class="nav-link"  [routerLink]="['/welcomepage']">Home</a>
+        <a class="nav-link active"  [routerLink]="['/welcomepage']">Home</a>
       </li>
       <li class="nav-item " >
         <a class="nav-link" [routerLink]="['/userhome']">Profile</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link " [routerLink]="['/myprojects']">My projects</a>
       </li>
       <li class="nav-item">
@@ -145,7 +145,7 @@
 
 
           <div class="card-body">
-              
+
           </div>
 
         </div>
@@ -161,11 +161,11 @@
             <br>
              <strong>Details</strong><br>
             <p class="text-justify">{{invi.description}}</p><br>
-            
-            
+
+
             <address>
               <strong>Profile link</strong><br>
-              <a >Click here to view profile</a>
+              <a (click)="viewProfile(i)" >Click here to view profile</a>
             </address>
             <div class="productprice">
                 <div class="pull-right">
@@ -174,7 +174,7 @@
                 <div class="pricetext">
                     <a  (click)="declineProject(i)" class="btn btn-warning btm-sm" role="button">Dicline  </a>
                 </div>
-                    
+
                 </div>
           </div>
         </div>

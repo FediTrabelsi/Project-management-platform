@@ -28,7 +28,7 @@ export class WelcomePageComponent implements OnInit {
     const data = {
       token: localStorage.getItem('token'),
       userId : JSON.parse(localStorage.getItem('user')).userId,
-      
+
     };
     this.userService.fechUser(data).subscribe(data => {
       this.user = data;
@@ -61,7 +61,7 @@ export class WelcomePageComponent implements OnInit {
       username : JSON.parse(localStorage.getItem('user')).username,
       projectId : this.user.invitations[id].invitedTo,
       imgsrc : this.user.imagesrc
-     
+
     }
     this.projectService.acceptProject(data).subscribe(data =>{
       console.log(data);
@@ -81,6 +81,11 @@ export class WelcomePageComponent implements OnInit {
         })
       }
     })
+  }
+
+  viewProfile(id){
+    localStorage.setItem('profileId',this.user.invitations[id].sender);
+    this._router.navigate(['viewProfile']);
   }
 
 }

@@ -82,6 +82,7 @@ export class MyProjectsComponent implements OnInit {
     this.projectService.createProject(data).subscribe(data=>{
       if(data['succes']){
         const dataproj={
+          description: this.projectform.get('description').value,
           token: localStorage.getItem('token'),
           userId : JSON.parse(localStorage.getItem('user')).userId,
           projectname : this.projectform.get('projectname').value,

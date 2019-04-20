@@ -250,6 +250,7 @@ export class ProjectEditComponent implements OnInit {
 
 
     const data={
+      userId : JSON.parse(localStorage.getItem('user')).userId,
       token: localStorage.getItem('token'),
       type :"project",
       membername : this.generalform.get('membername').value,

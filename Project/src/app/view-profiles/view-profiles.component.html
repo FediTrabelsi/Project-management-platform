@@ -1,0 +1,150 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+  <a class="navbar-brand" href="#">Wait for proj name ....</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <ul class="navbar-nav mr-auto">
+      <li >
+        <a class="nav-link"  [routerLink]="['/welcomepage']">Home</a>
+      </li>
+      <li class="nav-item " >
+        <a class="nav-link" [routerLink]="['/userhome']">Profile</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link " [routerLink]="['/myprojects']">My projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Forum</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">Logout</a>
+      </li>
+
+
+
+    </ul>
+
+
+
+
+  </div>
+
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-offset-2 col-lg-8">
+      <section class="panel panel-default">
+        <div class="panel-body">
+          <article class="panel-body">
+            <figure class="text-center">
+              <img src="http://localhost:8080/{{user?.imagesrc}}" class="img-thumbnail img-circle img-responsive" >
+              <figcaption>
+                <h3>{{user?.username}}</h3>
+                {{user?.description}}
+              </figcaption>
+            </figure>
+          </article>
+          <br>
+          <article>
+            <h4>
+            									  <strong>Personal Details</strong>
+								            </h4>
+            <hr>
+            <dl class="dl-horizontal">
+              <dt>First name</dt>
+              <dd>{{user?.firstname}}</dd>
+              <dt>Last name</dt>
+              <dd>{{user?.lastname}}</dd>
+
+              <dt>Age:</dt>
+              <dd>24</dd>
+              <dt>Friends</dt>
+              <dd>{{user?.friends.length}}</dd>
+              <dt>Forum contributions</dt>
+              <dd>0</dd>
+              <dt>Gender:</dt>
+              <dd>{{user?.gender}}</dd>
+              <dt>Country:</dt>
+              <dd>{{user?.country}}</dd>
+              <dt>Interests:</dt><dd>
+              <span *ngFor="let intrest of user?.intrests" style="display:inline-block;white-space:pre-wrap; margin-right: 1.5%">{{intrest.name}}</span>
+            </dd>
+            </dl>
+          </article>
+          <article>
+            <h4>
+									              <strong>Edcucation</strong>
+								            </h4>
+            <hr>
+            <dl *ngFor="let ed of user?.education" class="dl-horizontal">
+              <dt>{{ed?.year}}</dt>
+              <dd>{{ed?.institution}} | {{ed?.place}}</dd>
+            </dl>
+          </article>
+          <article>
+            <h4>
+									              <strong>Skills</strong>
+								            </h4>
+            <hr>
+            <dl class="dl-horizontal">
+              <dt>Languages:</dt>
+              <dd>HTML5, CSS3 and JavaScript</dd>
+              <dt>Development</dt>
+              <dd>              <span *ngFor="let skill of user?.skills" style="display:inline-block;white-space:pre-wrap; margin-right: 1.5%">{{skill.name}}</span>
+              </dd>
+            </dl>
+          </article>
+          <article>
+            <h4>
+									              <strong>Experiences</strong>
+								            </h4>
+            <hr>
+            <dl class="dl-horizontal" *ngFor="let exp of user?.experiance" >
+              <dt>{{exp?.expyear}}</dt>
+              <dd>{{exp?.exp}}</dd>
+            </dl>
+            <hr>
+          </article>
+          <article>
+            <h4>
+									         <strong>Projects</strong>
+								          </h4><br>
+            <dl  *ngFor="let proj of user?.projects">
+              <dt>{{proj?.name}}</dt>
+              <dd>{{proj?.description}}</dd>
+
+            </dl>
+            <hr>
+          </article>
+          <article>
+            <div class="pull-right">
+              <a href="https://www.facebook.com/yutthana.siphuengchai" title="Yutna's Facebook">
+                <img src="http://icons.iconarchive.com/icons/lunartemplates/modern-social-media-circles/48/Facebook-icon.png" alt="facebook">
+              </a>
+              <a href="https://twitter.com/Yutna_Na" title="Yutna's Twitter">
+                <img src="http://icons.iconarchive.com/icons/lunartemplates/modern-social-media-circles/48/Twitter-icon.png" alt="twitter">
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
