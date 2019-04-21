@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import {FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -20,6 +21,7 @@ import { ViewProfilesComponent } from './view-profiles/view-profiles.component';
 
 @NgModule({
   declarations: [
+
     AppComponent,
     LoginComponent,
     RegisterComponent,
@@ -30,6 +32,7 @@ import { ViewProfilesComponent } from './view-profiles/view-profiles.component';
     ViewProfilesComponent,
   ],
   imports: [
+    FormsModule,
     MDBBootstrapModule,
     BrowserModule,
     AppRoutingModule,

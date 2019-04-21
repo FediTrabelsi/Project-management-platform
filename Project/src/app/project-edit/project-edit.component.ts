@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService} from './../services/auth.service';
 import {Router } from '@angular/router';
 import { UserService} from '../services/userServices/user.service';
 import { ProjectService } from '../services/projectServices/project.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-
+import {  ChatService} from '../services/chatServices/chat.service';
 @Component({
   selector: 'app-project-edit',
   templateUrl: './project-edit.component.html',
   styleUrls: ['./project-edit.component.css']
 })
-export class ProjectEditComponent implements OnInit {
+export class ProjectEditComponent implements OnInit, OnDestroy {
+  room;
+  chatname;
+  messageText:String;
+  messageArray:Array<{user:String,message:String}> = [];
   user;
   profilepic;
   userProjects=null ;
@@ -30,6 +34,7 @@ export class ProjectEditComponent implements OnInit {
   techplaceholder="";
   generalbutton ="Edit"
   constructor(
+    private chatService : ChatService,
     private _router: Router,
     private authService: AuthService,
     private userService : UserService,
@@ -37,6 +42,13 @@ export class ProjectEditComponent implements OnInit {
     public formBuilder: FormBuilder
     ) { this.createGeneralForm();
         this.createFileForm();
+
+        this.chatService.newUserJoined()
+        .subscribe(data=> this.messageArray.push(data));
+        this.chatService.userLeftRoom()
+        .subscribe(data=> this.messageArray.push(data));
+        this.chatService.newMessageReceived()
+        .subscribe(data=>this.messageArray.push(data));
     }
 
     onFileSelected(event){
@@ -95,6 +107,7 @@ export class ProjectEditComponent implements OnInit {
         userId : JSON.parse(localStorage.getItem('user')).userId
       };
       this.projectService.fetchMyProjects(data).subscribe(data=>{
+        this.room=data['projects'][this.projectId].projectname;
       this.generalform= this.formBuilder.group({
         projectname: [data['projects'][this.projectId].projectname, Validators.compose([
 
@@ -127,6 +140,11 @@ export class ProjectEditComponent implements OnInit {
     this.loadProfileData();
     this.fetchMyProjects();
     this.createFileForm();
+    this.chatname=JSON.parse(localStorage.getItem('user')).username;
+  }
+
+  ngOnDestroy(){
+    this.leaveChat();
   }
 
   logout() {
@@ -167,15 +185,19 @@ export class ProjectEditComponent implements OnInit {
       userId : JSON.parse(localStorage.getItem('user')).userId,
     };
     this.projectService.fetchMyProjects(data).subscribe(data =>{
+      this.room=data['projects'][this.projectId].projectname;
       console.log(data['message']);
       if(data['succes']){
         console.log(data);
         this.userProjects = data;
+        this.joinChat();
+
       }
     })
   }
 
   updateGeneralData(){
+
     const data= {
       token: localStorage.getItem('token'),
       projectname : this.generalform.get('projectname').value,
@@ -273,5 +295,17 @@ export class ProjectEditComponent implements OnInit {
     })
   }
 
+  joinChat(){
+    this.chatService.joinRoom({user : this.chatname , room : this.room});
+  }
+
+  leaveChat(){
+    this.chatService.leaveRoom({user : this.chatname , room : this.room});
+  }
+
+  sendMessage()
+  {
+      this.chatService.sendMessage({user:this.chatname, room:this.room, message:this.messageText});
+  }
 
 }

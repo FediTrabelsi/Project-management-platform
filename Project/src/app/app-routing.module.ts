@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'myprojects', component: MyProjectsComponent, canActivate: [AuthGuardService]},
   {path : 'editproject', component: ProjectEditComponent, canActivate: [AuthGuardService]},
   {path : 'welcomepage', component: WelcomePageComponent, canActivate: [AuthGuardService]},
-  {path : 'viewProfile', component: ViewProfilesComponent, canActivate: [AuthGuardService]}
+  {path : 'viewProfile', component: ViewProfilesComponent, canActivate: [AuthGuardService]},
 
 ];
 
