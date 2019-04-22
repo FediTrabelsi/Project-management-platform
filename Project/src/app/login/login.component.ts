@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
     this.authService.AuthentificateUser(user).subscribe(data =>{
       this.loginstatus=""+data['message'];
       if(data['success']){
+        localStorage.setItem('notifications',data['notifications'].toString());
         this.messageClass='alert alert-success';
         this.message=""+data['message'];
         this.authService.storeUserData(data['token'],data['user']);

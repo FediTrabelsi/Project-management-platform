@@ -98,7 +98,7 @@ router.post('/login',(req,res)=>{
                             res.json({success: false,message : 'Wrong password'});
                         }else{
                             const token =jwt.sign({userId: user._id },config.secret,{expiresIn :'30m'});
-                            res.json({success: true,message : 'Redirecting to home page ....',token: token,user :{username: user.username,
+                            res.json({success: true ,notifications : user.invitations.length, message : 'Redirecting to home page ....',token: token,user :{username: user.username,
                             userId: user._id}});
                         }
                     }

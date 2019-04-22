@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService} from './../services/auth.service';
 import {Router } from '@angular/router';
 import { UserService} from '../services/userServices/user.service';
@@ -10,7 +10,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   templateUrl: './view-profiles.component.html',
   styleUrls: ['./view-profiles.component.css']
 })
-export class ViewProfilesComponent implements OnInit {
+export class ViewProfilesComponent implements OnInit, OnDestroy {
   user;
   profilepic;
   userProjects=null ;
@@ -24,6 +24,10 @@ export class ViewProfilesComponent implements OnInit {
   ngOnInit() {
     this.loadProfileData();
 
+  }
+
+  ngOnDestroy(){
+    localStorage.removeItem('profileId');
   }
   loadProfileData() {
     const data = {

@@ -39,10 +39,34 @@ userLeftRoom(){
     return observable;
 }
 
+
+
+
 sendMessage(data)
     {
         this.socket.emit('message',data);
     }
+
+    sendNotification(data)
+    {
+        this.socket.emit('notify',data);
+    }
+
+    removeNotification(data)
+    {
+        this.socket.emit('removeNotif',data);
+    }
+
+    newNotifRemoved(){
+      let observable = new Observable<{user:String, message:String}>(observer=>{
+          this.socket.on('remove', (data)=>{
+              observer.next(data);
+          });
+          return () => {this.socket.disconnect();}
+      });
+
+      return observable;
+  }
 
     newMessageReceived(){
         let observable = new Observable<{user:String, message:String}>(observer=>{
@@ -54,6 +78,17 @@ sendMessage(data)
 
         return observable;
     }
+
+    newNotificationReceived(){
+      let observable = new Observable<{user:String, message:String}>(observer=>{
+          this.socket.on('you recieved a new notification', (data)=>{
+              observer.next(data);
+          });
+          return () => {this.socket.disconnect();}
+      });
+
+      return observable;
+  }
 
 
   constructor() { }

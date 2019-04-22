@@ -5,44 +5,8 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+<app-navbar></app-navbar>
 
-  <a class="navbar-brand" href="#">Wait for proj name ....</a>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="basicExampleNav">
-
-    <ul class="navbar-nav mr-auto">
-      <li >
-        <a class="nav-link"  [routerLink]="['/welcomepage']">Home</a>
-      </li>
-      <li class="nav-item " >
-        <a class="nav-link" [routerLink]="['/userhome']">Profile</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link " [routerLink]="['/myprojects']">My projects</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Forum</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="logout()">Logout</a>
-      </li>
-
-
-
-    </ul>
-
-
-
-
-  </div>
-
-</nav>
 
 <section id="profile">
   <div style="display : inline-block" class="container-fluid">

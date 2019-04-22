@@ -145,6 +145,7 @@ export class ProjectEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.leaveChat();
+    localStorage.removeItem('projectId');
   }
 
   logout() {
@@ -269,8 +270,8 @@ export class ProjectEditComponent implements OnInit, OnDestroy {
   }
 
   addMember(){
-
-
+    const membername =this.generalform.get('membername').value;
+    const projname = this.userProjects.projects[this.projectId].projectname;
     const data={
       userId : JSON.parse(localStorage.getItem('user')).userId,
       token: localStorage.getItem('token'),
@@ -287,6 +288,10 @@ export class ProjectEditComponent implements OnInit, OnDestroy {
       if(data['succes']){
         this.member = false;
         this.memberbutton = false;
+        this.chatService.joinRoom({user : this.chatname , room :membername });
+        this.chatService.sendNotification({user:this.chatname, room:membername, message:"the user "+this.chatname+" invited you to join the project: "+projname});
+        this.chatService.leaveRoom({user : this.chatname , room : membername});
+
         this.ngOnInit();
       }else{
         this.generalform.reset();

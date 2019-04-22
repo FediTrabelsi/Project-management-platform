@@ -16,7 +16,8 @@ import { MyProjectsComponent } from './my-projects/my-projects.component';
 import { ProjectEditComponent } from './project-edit/project-edit.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { ViewProfilesComponent } from './view-profiles/view-profiles.component';
-
+import { NavbarComponent } from './navbar/navbar.component';
+import { PushNotificationsModule } from 'ng-push';
 
 
 @NgModule({
@@ -30,8 +31,11 @@ import { ViewProfilesComponent } from './view-profiles/view-profiles.component';
     ProjectEditComponent,
     WelcomePageComponent,
     ViewProfilesComponent,
+    NavbarComponent,
+
   ],
   imports: [
+    PushNotificationsModule,
     FormsModule,
     MDBBootstrapModule,
     BrowserModule,

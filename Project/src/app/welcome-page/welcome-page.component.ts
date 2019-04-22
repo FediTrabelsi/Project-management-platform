@@ -4,6 +4,7 @@ import {Router } from '@angular/router';
 import { UserService} from '../services/userServices/user.service';
 import { ProjectService } from '../services/projectServices/project.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {  ChatService} from '../services/chatServices/chat.service';
 
 @Component({
   selector: 'app-welcome-page',
@@ -14,14 +15,22 @@ export class WelcomePageComponent implements OnInit {
   user;
   profilepic;
   constructor(
+    private chatService : ChatService,
     private _router: Router,
     private authService: AuthService,
     private userService : UserService,
     private projectService : ProjectService
-    ) { }
+    ) {
+      this.chatService.newNotificationReceived()
+      .subscribe(data=>this.ngOnInit());
+     }
 
   ngOnInit() {
     this.loadProfileData();
+  }
+  joinChat(){
+    const username = JSON.parse(localStorage.getItem('user')).username ;
+    this.chatService.joinRoom({user : username , room : username});
   }
 
   loadProfileData() {
@@ -46,7 +55,8 @@ export class WelcomePageComponent implements OnInit {
         }
         this.projectService.removeFromInvitations(params).subscribe(data =>{
           if(data['succes']){
-            console.log(data)
+            console.log(data);
+            this.chatService.removeNotification(({user:this.user.username, room:this.user.username, message:"declined invitation"}));
             this.ngOnInit();
           }else{
             console.log(data['message'])
@@ -73,6 +83,7 @@ export class WelcomePageComponent implements OnInit {
         }
         this.projectService.removeFromInvitations(params).subscribe(data =>{
           if(data['succes']){
+            this.chatService.removeNotification(({user:this.user.username, room:this.user.username, message:"accepted invitation"}));
             console.log(data)
             this.ngOnInit();
           }else{

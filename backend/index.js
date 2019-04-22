@@ -69,4 +69,18 @@ io.on('connection',(socket)=>{
 
       io.in(data.room).emit('new message', {user:data.user, message:data.message});
     })
+
+    socket.on('removeNotif',function(data){
+        console.log(data.user +' ' + data.message);
+
+        io.in(data.room).emit('remove', {user:data.user, message:data.message});
+      })
+
+    socket.on('notify',function(data){
+        console.log(data.user  + data.message);
+
+        socket.broadcast.to(data.room).emit('you recieved a new notification', {user:data.user, message:data.message});
+    
+    })
+    
 });
