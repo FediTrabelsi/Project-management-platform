@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ProjectService {
+  domain= 'http://192.168.43.92:8080';
 
   constructor(private http: HttpClient , public router: Router) { }
 
@@ -13,7 +14,7 @@ export class ProjectService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/projects/createProject', httpParams,{
+    return this.http.post(this.domain+'/projects/createProject', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -24,7 +25,7 @@ export class ProjectService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/projects/acceptProject', httpParams,{
+    return this.http.post(this.domain+'/projects/acceptProject', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -34,14 +35,14 @@ export class ProjectService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/projects/removeFromInvitations', httpParams,{
+    return this.http.post(this.domain+'/projects/removeFromInvitations', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
 
   updateFile(data){
 
-    return this.http.post('http://localhost:8080/projects/uploadFile', data);
+    return this.http.post(this.domain+'/projects/uploadFile', data);
   }
 
   removeFile(data){
@@ -49,7 +50,7 @@ export class ProjectService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/projects/removeFile', httpParams,{
+    return this.http.post(this.domain+'/projects/removeFile', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -58,7 +59,7 @@ export class ProjectService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/projects/removeProject', httpParams,{
+    return this.http.post(this.domain+'/projects/removeProject', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -68,7 +69,7 @@ export class ProjectService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/projects/fetchProjects', httpParams,{
+    return this.http.post(this.domain+'/projects/fetchProjects', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -78,7 +79,7 @@ export class ProjectService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/projects/addTechnologie', httpParams,{
+    return this.http.post(this.domain+'/projects/addTechnologie', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -88,7 +89,7 @@ export class ProjectService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/projects/addMember', httpParams,{
+    return this.http.post(this.domain+'/projects/addMember', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -98,7 +99,7 @@ export class ProjectService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/projects/removeTechnologie', httpParams,{
+    return this.http.post(this.domain+'/projects/removeTechnologie', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -108,7 +109,7 @@ export class ProjectService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/projects/updateGeneralData', httpParams,{
+    return this.http.post(this.domain+'/projects/updateGeneralData', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }

@@ -14,6 +14,7 @@ import {  ChatService} from '../services/chatServices/chat.service';
 export class WelcomePageComponent implements OnInit {
   user;
   profilepic;
+  project="project"
   constructor(
     private chatService : ChatService,
     private _router: Router,
@@ -94,8 +95,38 @@ export class WelcomePageComponent implements OnInit {
     })
   }
 
+  acceptFriend(id){
+    const data={
+      token: localStorage.getItem('token'),
+      friendname : this.user.invitations[id].sender,
+      username : JSON.parse(localStorage.getItem('user')).username,
+      imgsrc : this.user.invitations[id].imagesrc
+
+    }
+    this.userService.addFriend(data).subscribe(data =>{
+      console.log(data);
+      if(data['succes']){
+        const params= {
+          token: localStorage.getItem('token'),
+          username : JSON.parse(localStorage.getItem('user')).username,
+           notificationId : this.user.invitations[id]._id
+        }
+        this.projectService.removeFromInvitations(params).subscribe(data =>{
+          if(data['succes']){
+            this.chatService.removeNotification(({user:this.user.username, room:this.user.username, message:"accepted invitation"}));
+            console.log(data)
+            this.ngOnInit();
+          }else{
+            console.log(data['message'])
+          }
+        })
+      }
+    })
+  }
+
   viewProfile(id){
     localStorage.setItem('profileId',this.user.invitations[id].sender);
+    localStorage.setItem('img',this.user.imagesrc);
     this._router.navigate(['viewProfile']);
   }
 

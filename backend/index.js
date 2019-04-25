@@ -25,7 +25,7 @@ mongoose.connect(config.uri,(err) => {
 
 
 app.use(cors({
-    origin:'http://localhost:4200'
+    origin:'http://192.168.43.92:4200'
 }));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static( '../Project/dist/'));
@@ -35,7 +35,7 @@ app.use('/projects',project);
 app.get('/',(req,res) => {
     res.send('hello');
 });
-app.listen(8080, () =>{
+app.listen(8080,'192.168.43.92', () =>{
     console.log('Server listening on port 8080');
 });
 
@@ -79,7 +79,7 @@ io.on('connection',(socket)=>{
     socket.on('notify',function(data){
         console.log(data.user  + data.message);
 
-        socket.broadcast.to(data.room).emit('you recieved a new notification', {user:data.user, message:data.message});
+        socket.broadcast.to(data.room).emit('you recieved a new notification', {user:data.user, message:data.message,img:data.img});
     
     })
     

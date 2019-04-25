@@ -299,6 +299,8 @@ router.post('/removeTechnologie',function(req,res){
     }
 });
 
+
+
 router.post('/updateGeneralData',function(req,res){
     if(!req.body.token){
         res.json({succes : false , message : 'you are not connected'});

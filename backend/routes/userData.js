@@ -313,6 +313,29 @@ router.post('/fetch',function(req,res){
 
 });
 
+router.post('/fetchbyName',function(req,res){
+  if (!req.body.token){
+    res.json({success: false, message:'you are not connected'});
+}else{
+  if(!req.body.username){
+    res.json({success: false, message:'no name provided'});
+  }else{
+    
+
+    User.findOne({username :req.body.username},(err,user)=>{
+      if (err){
+          res.json({success: false,message : err});
+      }else{
+        res.send(user);
+      
+  }
+})
+
+  }
+}
+
+});
+
 router.post('/inviteUser',function(req,res){
     if(!req.body.token){
       res.json({success: false, message:'you are not connected'});
@@ -338,13 +361,13 @@ router.post('/inviteUser',function(req,res){
                   invitedTo : req.body.Id,
                   sendDate : getDateTime(),
                   imagesrc : req.body.imagesrc,
-                  sender : req.body.userId
+                  sender : req.body.username
                 }
-                User.update({username : req.body.membername},
+                User.findOneAndUpdate({username : req.body.membername, "invitations.invitedTo":{ $ne: req.body.Id },"projects._id": {$ne : req.body.Id}},
                   {$push: {invitations : newInvitation}},
                   {safe: true, upsert: false},
                   function(err, user) {
-                      if(err || user.nModified===0){
+                      if(err || user==null){
                       res.json({succes: false , message : 'could not invite that user'})
                       }else{
                         res.json({succes: true , message : 'user invited'+JSON.stringify(user)})
@@ -356,6 +379,145 @@ router.post('/inviteUser',function(req,res){
         }
       }
     }
+});
+
+router.post('/inviteFriend',function(req,res){
+  if(!req.body.token){
+    res.json({success: false, message:'you are not connected'});
+  }else{
+    if(!req.body.Id){
+      res.json({success: false, message:'you have to provide  user id '});
+    }else{
+      if(!req.body.imagesrc){
+        res.json({success: false, message:'you have to provide sender profile image'});
+      }else{
+        if(!req.body.type){
+          res.json({success: false, message:'you have to specify invitation type'});
+        }else{
+          if(!req.body.description){
+            res.json({success: false, message:'you have to provide a description'});
+          }else{
+            if(!req.body.membername){
+              res.json({succes: false, message : 'you have to provide the username of the recipient'})
+            }else{
+              let newInvitation = {
+                type : req.body.type,
+                description: req.body.description,
+                invitedTo : req.body.Id,
+                sendDate : getDateTime(),
+                imagesrc : req.body.imagesrc,
+                sender : req.body.username
+              }
+              User.update({username: req.body.membername,"invitations.invitedTo":{ $ne: req.body.Id }, "friends.name":{ $ne : req.body.username}},
+                {$push: {invitations : newInvitation}},
+                {safe: true, upsert: false},
+                function(err, user) {
+                    if(err || user.nModified===0){
+                    res.json({succes: false , message : 'could not invite that user'})
+                    }else{
+                      res.json({succes: true , message : 'user invited'+JSON.stringify(user)})
+                    }
+                });
+            }
+          }
+        }
+      }
+    }
+  }
+});
+
+
+
+router.post('/getNotifications',function(req,res){
+  if(!req.body.token){
+    res.json({succes : false , message :'you are not connected'});
+  }else{
+    if(!req.body.userId){
+      res.json({succes : false , message :'you have to provide userId'});
+    }else{
+      User.findOne({_id:req.body.userId},(err,user)=>{
+        if(err){
+          res.json({succes: false , message : 'no user with that Id'})
+        }else{
+          res.json({succes : true , notifications : user.invitations})
+        }
+      });
+    }
+  }
+});
+
+router.post('/checkFriend',function(req,res){
+  if(!req.body.token){
+    res.json({succes : false ,friends: false, message :'you are not connected'});
+  }else{
+    if(!req.body.userId){
+      res.json({succes : false ,friends: false, message :'you have to provide userId'});
+    }else{
+      if(!req.body.memberId){
+        res.json({succes : false ,friends: false, message :'you have to provide memberId'});
+      }else{
+        User.findOne({friends : {friendId : req.body.memberId}},(err,user)=>{
+          if(err){
+            res.json({succes : false , friends: false, message :'error accured'});
+          }else{
+            if(user!=null){
+              res.json({succes : true ,friends: true, message :'users are friends'});
+            }else{
+              res.json({succes : false ,friends: false, message :'users are notfriends'});
+            }
+          }
+        })
+      }
+    }
+  }
+});
+
+router.post('/acceptFriend',function(req,res){
+  if(!req.body.token){
+      res.json({succes : false , message : 'you are not connected'});
+  }else{
+      if(!req.body.username){
+          res.json({succes : false , message : 'you have to provide the user name'});
+      }else{
+          if(!req.body.friendname){
+              res.json({succes : false , message : 'you have to provide friend name'});
+              
+          }else{
+              var newFriend={
+                                 
+                                  name : req.body.friendname,
+                                  imagesrc : req.body.imgsrc
+                                };
+                              User.findOneAndUpdate(req.body.username,
+                                  {$push: {friends : newFriend}},
+                                  {safe: true, upsert: false},
+                                  function(err, user) {
+                                      if(err){
+                                      res.json({succes: false , message : 'could not accept friend invitation'})
+                                      }else{
+                                      var newFriend2={
+                                        name : user.username,
+                                        imagesrc : user.imagesrc
+                                                       };
+                                      User.findOneAndUpdate({username : req.body.friendname},
+                                          {$push: {friends : newFriend2 }},
+                                          
+                                          {safe: false, upsert: false},
+                                          function(err, user) {
+                                              if(err){
+                                                  res.json({succes: false , message : 'could not add to friends'})
+                                              }else{
+                                                   res.json({succes: true , message : 'friend added'})
+                                              }
+                                          });  
+
+                                        
+                                      }
+                                  });
+              
+          }
+      }
+  }
 });
 
 function getDateTime() {

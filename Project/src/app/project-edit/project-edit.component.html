@@ -136,7 +136,7 @@
                         <ul class="list-group" id="contact-list">
                             <li class="list-group-item">
                                 <div class="col-xs-12 col-sm-3">
-                                    <img src="http://localhost:8080/{{userProjects.projects[projectId].creator?.imgsrc}}" width="30" height="30"  class="img-responsive img-circle" />
+                                    <img src="http://192.168.43.92:8080/{{userProjects.projects[projectId].creator?.imgsrc}}" width="30" height="30"  class="img-responsive img-circle" />
                                 </div>
                                 <div class="col-xs-12 col-sm-9">
                                     <span class="name">{{userProjects.projects[projectId].creator?.creatorname}}</span>
@@ -145,7 +145,7 @@
                             </li>
                             <li *ngFor="let mem of userProjects.projects[projectId]?.members" class="list-group-item">
                                 <div class="col-xs-12 col-sm-3">
-                                    <img src="http://localhost:8080/{{mem.imgsrc}}" width="30" height="30"  class="img-responsive img-circle" />
+                                    <img src="http://192.168.43.92:8080/{{mem.imgsrc}}" width="30" height="30"  class="img-responsive img-circle" />
                                 </div>
                                 <div class="col-xs-12 col-sm-9">
                                     <span class="name">{{mem.membername}}</span>

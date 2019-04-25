@@ -43,12 +43,13 @@ export class NavbarComponent implements OnInit {
   joinChat(){
     const username = JSON.parse(localStorage.getItem('user')).username ;
     this.chatService.joinRoom({user : username , room : username});
+
   }
 
   notify(data){
     let options = {
       body: data.message,
-      icon: "http://localhost:8080/uploads/avatar.jpg"
+      icon: "http://localhost:8080/"+data.img
     }
      this._pushNotifications.create("New notification", options).subscribe(
         res => console.log(res),

@@ -10,7 +10,7 @@ import * as jwt_decode from 'jwt-decode';
 export class AuthService {
   authToken;
   user;
-  domain: 'http://localhost:8080';
+  domain: 'http://192.168.43.92:8080';
   constructor(  private http: HttpClient , public router: Router) {}
   getTokenExpirationDate(token: string): Date {
     const decoded = jwt_decode(token);
@@ -40,7 +40,7 @@ export class AuthService {
     Object.keys(user).forEach(function (key) {
       httpParams = httpParams.append(key, user[key]);
     });
-    return this.http.post('http://localhost:8080/authentification/register', httpParams,{
+    return this.http.post('http://192.168.43.92:8080/authentification/register', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -50,7 +50,7 @@ export class AuthService {
     Object.keys(user).forEach(function (key) {
       httpParams = httpParams.append(key, user[key]);
     });
-    return this.http.post('http://localhost:8080/authentification/login', httpParams,{
+    return this.http.post('http://192.168.43.92:8080/authentification/login', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }

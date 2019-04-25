@@ -18,9 +18,9 @@
         <div class="panel-body">
           <article class="panel-body">
             <figure class="text-center">
-              <img src="http://localhost:8080/{{user?.imagesrc}}" class="img-thumbnail img-circle img-responsive" >
+              <img src="http://192.168.43.92:8080/{{user?.imagesrc}}" class="img-thumbnail img-circle img-responsive" >
               <figcaption>
-                <h3>{{user?.username}}</h3>
+                <h3 >{{user?.username}}</h3>
                 {{user?.description}}
               </figcaption>
             </figure>
@@ -99,12 +99,7 @@
           </article>
           <article>
             <div class="pull-right">
-              <a href="https://www.facebook.com/yutthana.siphuengchai" title="Yutna's Facebook">
-                <img src="http://icons.iconarchive.com/icons/lunartemplates/modern-social-media-circles/48/Facebook-icon.png" alt="facebook">
-              </a>
-              <a href="https://twitter.com/Yutna_Na" title="Yutna's Twitter">
-                <img src="http://icons.iconarchive.com/icons/lunartemplates/modern-social-media-circles/48/Twitter-icon.png" alt="twitter">
-              </a>
+              <button mdbBtn (click)="inviteFriend()" [hidden]="areFriends" type="button" color="primary" outline="true" mdbWavesEffect >Send friend invitation</button>
             </div>
           </article>
         </div>

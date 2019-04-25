@@ -101,18 +101,39 @@
 
 
       <div class="col-md-8">
-        <div class="card" style="margin-left: 10%" >
-
+        <div class="card" style=" margin-left: 10% ; " >
           <div class="card-header">
-            <h4>Friends invitations</h4>
+            <h4>friend invitations</h4>
           </div>
-
-
           <div class="card-body">
+           <div class="col-md-4" *ngFor="let invi of user?.invitations; let i = index ;"style="margin-bottom : 3% ; margin-right : 3%">
+          <div [hidden]="invi.type!='friend'" class="productbox">
+            <img src="http://192.168.43.92:8080/{{invi.imagesrc}}" width="50" height="50" class="img-responsive img-circle">
+            <br>
+             <strong>Details</strong><br>
+            <p class="text-justify">{{invi.description}}</p><br>
+
+
+            <address>
+              <strong>Profile link</strong><br>
+              <a (click)="viewProfile(i)" >Click here to view profile</a>
+            </address>
+            <div class="productprice">
+                <div class="pull-right">
+                    <a (click)="acceptFriend(i)" class="btn btn-success btm-sm" role="button">Accept </a>
+                </div>
+                <div class="pricetext">
+                    <a  (click)="declineProject(i)" class="btn btn-warning btm-sm" role="button">Dicline  </a>
+                </div>
+
+                </div>
+          </div>
+        </div>
 
           </div>
 
-        </div>
+
+          </div>
 
         <div class="card" style=" margin-left: 10% ; margin-top: 5%" >
           <div class="card-header">
@@ -120,8 +141,8 @@
           </div>
           <div class="card-body">
            <div class="col-md-4" *ngFor="let invi of user?.invitations; let i = index ;"style="margin-bottom : 3% ;margin-top : 3% ; margin-right : 3%">
-          <div class="productbox">
-            <img src="http://localhost:8080/{{invi.imagesrc}}" width="50" height="50" class="img-responsive img-circle">
+          <div *ngIf="invi.type==='project'" class="productbox">
+            <img src="http://192.168.43.92:8080/{{invi.imagesrc}}" width="50" height="50" class="img-responsive img-circle">
             <br>
              <strong>Details</strong><br>
             <p class="text-justify">{{invi.description}}</p><br>

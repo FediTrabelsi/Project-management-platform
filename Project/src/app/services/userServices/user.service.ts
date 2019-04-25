@@ -8,7 +8,7 @@ import { httpFactory } from '@angular/http/src/http_module';
   providedIn: 'root'
 })
 export class UserService {
-  domain: 'http://localhost:8080';
+  domain= 'http://192.168.43.92:8080';
 
   constructor( private http: HttpClient , public router: Router) { }
 
@@ -16,7 +16,7 @@ export class UserService {
 
   updateProfileImage(data){
 
-    return this.http.post('http://localhost:8080/user/updateImage', data);
+    return this.http.post(this.domain + '/user/updateImage', data);
   }
 
   addEducation(data){
@@ -24,7 +24,36 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/addEducation', httpParams,{
+    return this.http.post(this.domain+'/user/addEducation', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+  getNotifications(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post(this.domain+'/user/getNotifications', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+
+  checkFriend(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post(this.domain+'/user/checkFriend', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+
+  inviteFriend(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post(this.domain+'/user/inviteFriend', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -34,7 +63,7 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/inviteUser', httpParams,{
+    return this.http.post(this.domain+'/user/inviteUser', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -44,7 +73,7 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/addProject', httpParams,{
+    return this.http.post(this.domain+'/user/addProject', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -54,7 +83,7 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/removeEducation', httpParams,{
+    return this.http.post(this.domain+'/user/removeEducation', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -64,7 +93,26 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/fetch', httpParams,{
+    return this.http.post(this.domain+'/user/fetch', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+  fechUserByname(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post(this.domain+'/user/fetchbyName', httpParams,{
+      headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
+    });
+  }
+
+  addFriend(data){
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+    return this.http.post(this.domain+'/user/acceptFriend', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -74,7 +122,7 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/removeSkill', httpParams,{
+    return this.http.post(this.domain+'/user/removeSkill', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -84,7 +132,7 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/addSkill', httpParams,{
+    return this.http.post(this.domain+'/user/addSkill', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -94,7 +142,7 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/removeIntrest', httpParams,{
+    return this.http.post(this.domain+'/user/removeIntrest', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -104,7 +152,7 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/addIntrest', httpParams,{
+    return this.http.post(this.domain+'/user/addIntrest', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -114,7 +162,7 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/addExperiance', httpParams,{
+    return this.http.post(this.domain+'/user/addExperiance', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -125,7 +173,7 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/removeExperiance', httpParams,{
+    return this.http.post(this.domain+'/user/removeExperiance', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }
@@ -135,7 +183,7 @@ export class UserService {
     Object.keys(data).forEach(function (key) {
       httpParams = httpParams.append(key, data[key]);
     });
-    return this.http.post('http://localhost:8080/user/update', httpParams,{
+    return this.http.post(this.domain+'/user/update', httpParams,{
       headers: new HttpHeaders().set('Content-Type' , 'application/x-www-form-urlencoded')
     });
   }

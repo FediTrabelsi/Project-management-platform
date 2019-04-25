@@ -178,7 +178,7 @@ createEdForm(){
     };
     this.userService.fechUser(data).subscribe(data => {
       this.user = data;
-      this.profilepic="http://localhost:8080/"+(data['imagesrc']);
+      this.profilepic="http://192.168.43.92:8080/"+(data['imagesrc']);
 
     })  ;
   }

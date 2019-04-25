@@ -5,7 +5,7 @@ import { Observable } from 'rxjs-observable';
   providedIn: 'root'
 })
 export class ChatService {
-  private socket = io('http://localhost:3000');
+  private socket = io('http://192.168.43.92:3000');
 
   joinRoom(data)
   {
